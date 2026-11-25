@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background: #070b14;
-  color: #f8fafc;
+  background: #f7f9fc;
+  color: #142c46;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .hero-background {
   isolation: isolate;
+  overflow-x: clip;
+  background-color: #f7f9fc;
   background-image: linear-gradient(
     110deg,
     transparent 42%,
-    rgb(148 163 184 / 4%) 50%,
+    rgb(16 43 80 / 3%) 50%,
     transparent 58%
   );
   background-size: 240% 100%;
@@ -31,21 +33,21 @@ body {
   border-radius: 9999px;
   content: "";
   filter: blur(100px);
-  opacity: 0.22;
+  opacity: 0.12;
   pointer-events: none;
 }
 
 .hero-background::before {
   top: -25%;
   left: -20%;
-  background: #2563eb;
+  background: #102b50;
   animation: ambient-drift 15s ease-in-out infinite alternate;
 }
 
 .hero-background::after {
   right: -25%;
   bottom: -35%;
-  background: #7c3aed;
+  background: #159447;
   animation: ambient-drift 18s ease-in-out -5s infinite alternate-reverse;
 }
 
@@ -77,26 +79,6 @@ body {
 
 .intro-lines {
   top: calc(50% + clamp(6rem, 12vh, 10rem));
-}
-
-.button-grid {
-  animation: grid-appear 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-.problem-button {
-  animation: button-pop-in 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.problem-button:hover {
-  transform: translateY(-3px);
-  border-color: rgb(103 232 249 / 55%);
-  background-color: rgb(15 23 42 / 90%);
-  box-shadow: 0 12px 35px rgb(34 211 238 / 12%);
 }
 
 @keyframes cinematic-sweep {
@@ -134,13 +116,13 @@ body {
 @keyframes intro-title-arrive {
   0% {
     opacity: 0;
-    filter: blur(14px) drop-shadow(0 0 0 rgb(34 211 238 / 0%));
+    filter: blur(14px) drop-shadow(0 0 0 rgb(21 148 71 / 0%));
     transform: translate3d(-50%, -50%, 0) scale(0.2);
   }
 
   55% {
     opacity: 1;
-    filter: blur(0) drop-shadow(0 0 34px rgb(34 211 238 / 45%));
+    filter: blur(0) drop-shadow(0 0 34px rgb(21 148 71 / 26%));
     transform: translate3d(-50%, -50%, 0) scale(1.16);
   }
 
@@ -150,7 +132,7 @@ body {
 
   100% {
     opacity: 1;
-    filter: blur(0) drop-shadow(0 0 22px rgb(34 211 238 / 25%));
+    filter: blur(0) drop-shadow(0 0 22px rgb(16 43 80 / 16%));
     transform: translate3d(-50%, -50%, 0) scale(1);
   }
 }
@@ -180,27 +162,15 @@ body {
   }
 }
 
-@keyframes grid-appear {
+@keyframes card-appear {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(14px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes button-pop-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.94);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
