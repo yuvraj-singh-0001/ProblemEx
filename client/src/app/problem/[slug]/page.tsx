@@ -1,27 +1,39 @@
 import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { problemSections } from "@/app/problem-sections";
-import ProblemNavbar from "@/app/components/problem-navbar";
+import { problemSectionSlugs } from "@/app/problem-section-slugs";
+import Navbar from "@/app/components/navbar";
 
 type ProblemPageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return Array.from({ length: 16 }, (_, index) => ({
-    id: String(index + 1),
-  }));
+  return problemSectionSlugs.map((slug) => ({ slug }));
 }
 
-function isValidProblemId(id: string) {
-  const number = Number(id);
-  return Number.isInteger(number) && number >= 1 && number <= 16;
+function getProblemIndex(slug: string) {
+  const slugIndex = problemSectionSlugs.indexOf(slug);
+
+  if (slugIndex !== -1) {
+    return slugIndex;
+  }
+
+  if (/^\d+$/.test(slug)) {
+    const numericIndex = Number(slug) - 1;
+    return numericIndex >= 0 && numericIndex < problemSections.length
+      ? numericIndex
+      : -1;
+  }
+
+  return -1;
 }
 
-function getProblemTitle(id: string) {
-  return problemSections[Number(id) - 1] ?? `Problem ${id}`;
+function getProblemTitle(slug: string) {
+  const index = getProblemIndex(slug);
+  return problemSections[index] ?? `Problem ${slug}`;
 }
 
 const problemDescription =
@@ -110,44 +122,109 @@ const whyProblemPoints = [
   },
 ];
 
+const consequencesIntroduction = [
+  "Do not underestimate the consequences of this problem. What may appear to be a gap in knowledge or an inability to handle certain real-life situations can gradually become a destructive force, affecting virtually every aspect of your life.",
+  "Like termites silently eating away at the foundations of a building, the inability to navigate real-life situations can gradually erode the very foundations on which a fulfilling, successful and stable life is built. It can begin by affecting your professional growth, but its impact may not stop there. It can spill over into your personal life, physical and mental health, relationships, financial stability, social reputation, self-confidence and peace of mind.",
+  "You may find yourself struggling with situations you never imagined would become so difficult, making decisions you later regret, losing opportunities you could have seized, damaging relationships you could have saved, or becoming trapped in circumstances you could have otherwise navigated successfully. Over time, the struggle may not just be with the world around you, but with yourself, your own choices, your frustrations, your insecurities and the inability to find a way forward.",
+];
+
+const consequencesLead =
+  "The consequences can be far more serious, far more widespread and far more devastating than we often realise. And some of them are:";
+
+const consequencesPoints = [
+  {
+    title: "A Generation Struggling to Stand on Its Own Feet",
+    text: "Without the ability to independently assess situations, make decisions, solve problems and take responsibility, individuals can become excessively dependent on others even for challenges they ought to be capable of handling themselves. This can undermine confidence, independence, initiative and the ability to take charge of one's own life.",
+  },
+  {
+    title: "Poor Decisions with Lasting Consequences",
+    text: "Life constantly demands decisions, many of which carry consequences that cannot easily be reversed. Without sound judgement, critical thinking and the ability to assess risks, consequences and alternatives, individuals can make choices that jeopardise their education, careers, finances, relationships, reputation and future.",
+  },
+  {
+    title: "Everyday Challenges Turning Into Overwhelming Crises",
+    text: "When individuals lack the ability to manage difficult situations, setbacks, disappointments, conflicts and uncertainty, even relatively manageable challenges can become disproportionately overwhelming. The inability to cope, adapt and respond constructively can gradually erode confidence, emotional stability and peace of mind.",
+  },
+  {
+    title: "Strained Relationships and the Breakdown of Human Connections",
+    text: "Relationships require far more than affection or good intentions. They demand communication, empathy, patience, emotional maturity, boundaries, conflict resolution and mutual understanding. When these abilities are lacking, misunderstandings escalate, conflicts remain unresolved, trust erodes and relationships with parents, partners, friends, colleagues and others can suffer deeply.",
+  },
+  {
+    title: "Vulnerability to Manipulation, Exploitation and Deception",
+    text: "Individuals who lack critical thinking, situational awareness, judgement and the ability to independently evaluate information can become easier targets of manipulation, fraud, exploitation, misinformation, peer pressure and deceptive influences. In a world increasingly shaped by digital platforms, AI, information overload and sophisticated manipulation, these vulnerabilities can carry serious consequences.",
+  },
+  {
+    title: "Reduced Employability, Career Growth and Economic Independence",
+    text: "Academic qualifications alone cannot guarantee professional success. Individuals who struggle to communicate, solve practical problems, adapt, collaborate, exercise judgement, take initiative and respond to workplace challenges can find themselves disadvantaged in an increasingly competitive professional environment. This can affect their employability, career progression, earning potential and ability to achieve economic independence.",
+  },
+  {
+    title: "Missed Opportunities, Wasted Potential and Unfulfilled Aspirations",
+    text: "A lack of practical abilities, confidence, initiative and problem-solving capacity can prevent individuals from recognising, pursuing or capitalising on opportunities. Ideas may never translate into action, ambitions may remain unrealised, and talent and potential may remain underdeveloped, not because individuals lack intelligence or ability, but because they lack the competencies to navigate the path ahead.",
+  },
+  {
+    title: "Compromised Ethical Judgement and Responsible Behaviour",
+    text: "When individuals are inadequately equipped to recognise, assess and navigate ethical dilemmas, they may struggle to distinguish between what is convenient and what is right, between immediate gratification and long-term responsibility, or between personal interest and the larger good. This can have consequences for personal conduct, professional integrity, relationships, trust and social responsibility.",
+  },
+  {
+    title: "A Society Less Equipped to Handle Its Collective Challenges",
+    text: "The cumulative impact of these shortcomings extends beyond individual lives. A society comprising individuals who struggle with critical thinking, responsibility, practical problem-solving, constructive dialogue, independent judgement and the ability to navigate differences becomes less equipped to address collective challenges, resolve conflicts, make informed choices and contribute meaningfully to social progress.",
+  },
+];
+
 export async function generateMetadata({
   params,
 }: ProblemPageProps): Promise<Metadata> {
-  const { id } = await params;
+  const { slug } = await params;
+  const problemIndex = getProblemIndex(slug);
 
-  if (!isValidProblemId(id)) {
+  if (problemIndex === -1) {
     return { title: "Problem not found" };
   }
 
-  return {
-    title: getProblemTitle(id),
-    description:
-      id === "1"
-        ? "Today, we are witnessing some striking paradoxes in the world of education, academic achievement and its actual application in real life."
-        : `${getProblemTitle(id)} — a ProblemEx learning section.`,
-    keywords:
-      id === "1"
+  const description =
+    problemIndex === 0
+      ? "Today, we are witnessing some striking paradoxes in the world of education, academic achievement and its actual application in real life."
+      : problemIndex === 1
+        ? "Explore how difficulty navigating real-life situations can affect independence, decisions, relationships, employability, financial stability and peace of mind."
+        : `${getProblemTitle(slug)} — a ProblemEx learning section.`;
+  const keywords =
+    problemIndex === 0
+      ? [
+          "ProblemEx",
+          "education and real-life application",
+          "academic achievement",
+          "self-reliance",
+          "practical skills",
+          "vocational and technical skills",
+          "meaningful employment",
+          "why education problems persist",
+          "rote learning",
+          "experiential learning",
+          "real-life application of knowledge",
+          "practical education",
+        ]
+      : problemIndex === 1
         ? [
             "ProblemEx",
-            "education and real-life application",
-            "academic achievement",
-            "self-reliance",
-            "practical skills",
-            "vocational and technical skills",
-            "meaningful employment",
-            "why education problems persist",
-            "rote learning",
-            "experiential learning",
-            "real-life application of knowledge",
-            "practical education",
+            "consequences of poor problem-solving skills",
+            "real-life problem-solving",
+            "decision-making skills",
+            "relationship challenges",
+            "employability and career growth",
+            "economic independence",
+            "critical thinking",
+            "life skills",
           ]
-        : ["ProblemEx", getProblemTitle(id), "real-life problems"],
-    ...(id === "1"
+        : ["ProblemEx", getProblemTitle(slug), "real-life problems"];
+
+  return {
+    title: getProblemTitle(slug),
+    description,
+    keywords,
+    ...(problemIndex <= 1
       ? {
           openGraph: {
-            title: getProblemTitle(id),
-            description:
-              "Today, we are witnessing some striking paradoxes in the world of education, academic achievement and its actual application in real life.",
+            title: getProblemTitle(slug),
+            description,
             type: "article" as const,
           },
         }
@@ -155,24 +232,56 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProblemPage({ params }: ProblemPageProps) {
-  const { id } = await params;
+export default function ProblemPage({ params }: ProblemPageProps) {
+  return (
+    <Suspense fallback={<ProblemPageFallback />}>
+      <ProblemPageContent params={params} />
+    </Suspense>
+  );
+}
 
-  if (!isValidProblemId(id)) {
+function ProblemPageFallback() {
+  return (
+    <main
+      aria-busy="true"
+      aria-label="Loading problem section"
+      className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-6 pt-2 sm:px-6 sm:pb-12 sm:pt-3"
+    >
+      <Navbar />
+      <div className="mx-auto mt-10 w-full max-w-7xl animate-pulse space-y-10 sm:mt-14">
+        <div className="mx-auto h-12 max-w-md rounded-xl bg-[#dce6ed]" />
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="h-56 rounded-2xl bg-[#e7eef2]" />
+          <div className="aspect-square w-full max-w-[min(62svh,44rem)] justify-self-center rounded-3xl bg-[#e7eef2]" />
+        </div>
+      </div>
+    </main>
+  );
+}
+
+async function ProblemPageContent({ params }: ProblemPageProps) {
+  const { slug } = await params;
+  const problemIndex = getProblemIndex(slug);
+
+  if (problemIndex === -1) {
     notFound();
+  }
+
+  if (/^\d+$/.test(slug)) {
+    permanentRedirect(`/problem/${problemSectionSlugs[problemIndex]}`);
   }
 
   return (
     <main className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-6 pt-2 sm:px-6 sm:pb-12 sm:pt-3">
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
-      <ProblemNavbar />
+      <Navbar />
       <section className="relative mx-auto w-full max-w-7xl py-2 sm:py-4">
         <header className="px-2 py-7 text-center sm:py-10">
           <h1 className="mx-auto inline-block bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-3xl font-extrabold tracking-tight text-transparent sm:text-5xl">
-            {getProblemTitle(id)}
+            {getProblemTitle(slug)}
           </h1>
         </header>
-        {id === "1" ? (
+        {problemIndex === 0 ? (
           <>
             <div className="mt-5 grid w-full min-w-0 items-center gap-5 sm:mt-7 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
               <div className="min-w-0 px-1 py-3 sm:px-2 sm:py-5 lg:pr-4">
@@ -215,7 +324,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
             </div>
             <section className="relative isolate mx-auto mt-20 w-full max-w-5xl py-12 text-left sm:mt-28 sm:py-16 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#eaf3ef]">
               <h2 className="mx-auto block w-fit bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-center text-balance text-2xl font-extrabold tracking-tight text-transparent sm:text-4xl">
-                B. Why Does This Problem Exist?
+                 Why Does This Problem Exist?
               </h2>
               <p className="mt-8 text-pretty text-[17px] leading-7 text-slate-700 sm:mt-10 sm:text-[19px] sm:leading-8">
                 {whyProblemDescription}
@@ -235,7 +344,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
                           {point.text}
                         </p>
                       )}
-                      {"subsections" in point && (
+                      {Array.isArray(point.subsections) && (
                         <div className="mt-5 space-y-6 sm:mt-7 sm:space-y-8">
                           {point.subsections.map((subsection, subsectionIndex) => (
                             <section key={subsection.title}>
@@ -255,20 +364,58 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
               </div>
             </section>
           </>
+        ) : problemIndex === 1 ? (
+          <>
+            <div className="mx-auto mt-5 max-w-6xl space-y-5 text-left sm:mt-7 sm:space-y-6">
+              {consequencesIntroduction.map((paragraph) => (
+                <p
+                  className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8"
+                  key={paragraph}
+                >
+                  {paragraph}
+                </p>
+              ))}
+              <figure className="relative mx-auto my-7 aspect-[3/1] w-full max-w-5xl sm:my-9">
+                <Image
+                  alt="Wavy chain of consequences infographic"
+                  className="object-contain drop-shadow-[0_12px_24px_rgba(16,43,80,0.08)]"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 80vw"
+                  src="/Wavy%20Chain%20of%20Consequences%20Infographic%20(1).png"
+                />
+              </figure>
+              <p className="pt-2 text-pretty text-lg font-semibold leading-7 text-[#102b50] sm:pt-4 sm:text-xl sm:leading-8">
+                {consequencesLead}
+              </p>
+            </div>
+            <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 text-left sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+              {consequencesPoints.map((point, index) => (
+                <article
+                  className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-t-4 bg-gradient-to-br p-5 shadow-[0_10px_30px_rgba(16,43,80,0.06)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(16,43,80,0.12)] motion-reduce:animate-none sm:rounded-3xl sm:p-6 ${problemCardThemes[index % problemCardThemes.length]}`}
+                  key={point.title}
+                  style={{ animationDelay: `${index * 55}ms` }}
+                >
+                  <p className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-xs font-extrabold tracking-[0.08em] ring-1 ring-black/5 shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5 sm:h-12 sm:w-12 sm:rounded-2xl sm:text-sm ${problemCardThemes[index % problemCardThemes.length].split(" ").pop()}`}>
+                    {index + 1}.
+                  </p>
+                  <div className="mt-5">
+                    <h2 className="text-balance text-xl font-extrabold leading-snug tracking-[-0.02em] text-[#102b50] sm:text-2xl">
+                      {point.title}
+                    </h2>
+                    <span aria-hidden="true" className="mt-3 block h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447]" />
+                    <p className="mt-3 text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                      {point.text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
         ) : (
           <p className="mx-auto mt-8 max-w-xl rounded-2xl border border-[#dce6ed] bg-white/85 px-6 py-8 text-center text-base leading-7 text-slate-600 sm:text-lg">
             This ProblemEx section is ready for its learning content.
           </p>
         )}
-        <div className="mt-8 border-t border-[#d4e0e8] pt-7 text-center sm:mt-10 sm:pt-9">
-          <Link
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#102b50] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#102b50]/15 transition duration-200 hover:-translate-y-0.5 hover:bg-[#159447] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]"
-            href="/"
-          >
-            <span aria-hidden="true" className="mr-2">←</span>
-            Back to ProblemEx
-          </Link>
-        </div>
       </section>
     </main>
   );

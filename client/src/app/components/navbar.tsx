@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { problemSections } from "@/app/problem-sections";
+import { problemSectionSlugs } from "@/app/problem-section-slugs";
 
-export default function ProblemNavbar() {
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -58,7 +59,7 @@ export default function ProblemNavbar() {
                 <li key={label}>
                   <Link
                     className="flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-[#183b61] transition hover:bg-gradient-to-r hover:from-[#edf5fb] hover:to-[#edf8f0] hover:text-[#117541] focus-visible:outline-2 focus-visible:outline-[#159447]"
-                    href={`/problem/${index + 1}`}
+                    href={`/problem/${problemSectionSlugs[index]}`}
                     onClick={() => setMenuOpen(false)}
                   >
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#edf5ef] text-[10px] font-extrabold tracking-wide text-[#159447]">

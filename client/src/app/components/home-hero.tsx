@@ -5,34 +5,43 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { problemSections } from "@/app/problem-sections";
+import { problemSectionSlugs } from "@/app/problem-section-slugs";
 const introLines = [
   "ProblemEx turns real-life challenges into practical, usable solutions.",
   "Explore everyday problems and discover ideas that can help solve them.",
 ];
 const introCompleteKey = "problemex-intro-complete";
+const handledDocumentKey = "problemex-intro-handled-document";
 
 export default function HomeHero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [typedLines, setTypedLines] = useState(["", ""]);
-  const [loadingIndex, setLoadingIndex] = useState<number | null>(null);
   const [phase, setPhase] = useState<
-    "checking" | "entering" | "typing" | "zooming" | "buttons"
+    "checking" | "entering" | "typing" | "zooming" | "buttons" | "buttons-static"
   >("checking");
+  const showButtons = phase === "buttons" || phase === "buttons-static";
 
   useEffect(() => {
     const navigation = performance.getEntriesByType(
       "navigation",
     )[0] as PerformanceNavigationTiming | undefined;
 
-    if (navigation?.type === "reload") {
+    const documentToken = String(performance.timeOrigin);
+    const reloadAlreadyHandled =
+      window.sessionStorage.getItem(handledDocumentKey) === documentToken;
+
+    if (navigation?.type === "reload" && !reloadAlreadyHandled) {
       window.sessionStorage.removeItem(introCompleteKey);
     }
+    window.sessionStorage.setItem(handledDocumentKey, documentToken);
 
-    setPhase(
-      window.sessionStorage.getItem(introCompleteKey) === "true"
-        ? "buttons"
-        : "entering",
-    );
+    const introComplete =
+      window.sessionStorage.getItem(introCompleteKey) === "true";
+    const initialPhaseFrame = window.requestAnimationFrame(() => {
+      setPhase(introComplete ? "buttons-static" : "entering");
+    });
+
+    return () => window.cancelAnimationFrame(initialPhaseFrame);
   }, []);
 
   useEffect(() => {
@@ -110,12 +119,12 @@ export default function HomeHero() {
   return (
     <main
       className={`relative flex min-h-[100svh] overflow-x-clip ${
-        phase === "buttons"
+        showButtons
           ? "items-stretch justify-start bg-[#f4f7fb] px-0"
           : "hero-background items-center justify-center px-4"
       }`}
     >
-      {phase === "buttons" && (
+      {showButtons && (
         <>
           <div
             aria-hidden="true"
@@ -127,7 +136,7 @@ export default function HomeHero() {
           />
         </>
       )}
-      {phase !== "checking" && phase !== "buttons" && (
+      {phase !== "checking" && !showButtons && (
         <section
           aria-label="ProblemEx introduction"
           className={`${phase === "zooming" ? "intro-zoom-out " : ""}relative z-10 flex min-h-[100svh] w-full max-w-4xl flex-col items-center justify-center text-center`}
@@ -165,7 +174,7 @@ export default function HomeHero() {
         </section>
       )}
 
-      {phase === "buttons" && (
+      {showButtons && (
         <nav
           aria-label="Problem pages"
           className="relative z-10 mx-auto flex h-[100svh] min-h-[100svh] w-full max-w-[1920px] flex-col px-2 pt-2 pb-6 sm:px-4 sm:pt-3 sm:pb-8 xl:px-6 xl:pt-4 xl:pb-10"
@@ -186,19 +195,12 @@ export default function HomeHero() {
             {problemSections.map((label, index) => (
               <li key={label}>
                 <Link
-                  aria-busy={loadingIndex === index}
-                  aria-label={
-                    loadingIndex === index ? `Opening ${label}` : label
-                  }
-                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#c6d1dd] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem] ${loadingIndex !== null && loadingIndex !== index ? "pointer-events-none opacity-55" : ""}`}
-                  href={`/problem/${index + 1}`}
-                  onNavigate={(event) => {
-                    if (loadingIndex !== null) {
-                      event.preventDefault();
-                      return;
-                    }
-
-                    setLoadingIndex(index);
+                  aria-label={label}
+                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#c6d1dd] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] ${phase === "buttons" ? "animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards]" : ""} transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem]`}
+                  href={`/problem/${problemSectionSlugs[index]}`}
+                  onNavigate={() => {
+                    window.sessionStorage.setItem(introCompleteKey, "true");
+                    setPhase("buttons-static");
                   }}
                   style={{ animationDelay: `${index * 28}ms` }}
                 >
@@ -218,17 +220,13 @@ export default function HomeHero() {
                     />
                   </span>
                   <span className="absolute inset-x-3 top-[58%] z-10 -translate-y-1/2 text-center text-balance text-[10px] font-bold leading-tight text-[#102b50] min-[430px]:top-1/2 min-[430px]:text-xs sm:inset-x-5 sm:text-sm xl:text-base">
-                    {loadingIndex === index ? "Opening..." : label}
+                    {label}
                   </span>
                   <span
                     aria-hidden="true"
                     className="absolute right-2 top-2 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#102b50]/20 bg-white/70 text-sm text-[#102b50] transition-colors duration-200 group-hover:border-[#159447] group-hover:bg-[#159447] group-hover:text-white sm:right-3 sm:top-3 sm:h-8 sm:w-8 sm:text-base xl:h-10 xl:w-10"
                   >
-                    {loadingIndex === index ? (
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#102b50]/20 border-t-[#159447]" />
-                    ) : (
-                      "→"
-                    )}
+                    →
                   </span>
                 </Link>
               </li>
