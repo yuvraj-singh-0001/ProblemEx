@@ -190,7 +190,7 @@ export default function HomeHero() {
                   aria-label={
                     loadingIndex === index ? `Opening ${label}` : label
                   }
-                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem] ${loadingIndex !== null && loadingIndex !== index ? "pointer-events-none opacity-55" : ""}`}
+                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#c6d1dd] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem] ${loadingIndex !== null && loadingIndex !== index ? "pointer-events-none opacity-55" : ""}`}
                   href={`/problem/${index + 1}`}
                   onNavigate={(event) => {
                     if (loadingIndex !== null) {
@@ -204,11 +204,11 @@ export default function HomeHero() {
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute inset-0 animate-[spin_7s_linear_infinite] rounded-[inherit] bg-[conic-gradient(from_0deg,#102b50,#159447_25%,#ed1c24_48%,#159447_70%,#183052)] motion-reduce:animate-none"
+                    className="absolute inset-[1.5px] z-[1] rounded-[1.05rem] bg-[radial-gradient(ellipse_at_100%_100%,rgba(21,148,71,0.08),transparent_48%),radial-gradient(ellipse_at_0%_0%,rgba(237,28,36,0.05),transparent_48%),linear-gradient(135deg,#e2ebf4,#cbd9e8)] transition-[filter] duration-200 group-hover:brightness-[0.98] sm:rounded-[1.25rem]"
                   />
                   <span
                     aria-hidden="true"
-                    className="absolute inset-[1.5px] z-[1] rounded-[1.05rem] bg-[radial-gradient(ellipse_at_100%_100%,rgba(21,148,71,0.13),transparent_48%),radial-gradient(ellipse_at_0%_0%,rgba(237,28,36,0.08),transparent_48%),linear-gradient(135deg,#f1f4f8,#e4eaf1)] transition-[filter] duration-200 group-hover:brightness-[0.98] sm:rounded-[1.25rem]"
+                    className="pointer-events-none absolute inset-0 z-0 scale-150 animate-[spin_5s_linear_infinite] rounded-[inherit] bg-[conic-gradient(from_0deg,transparent_0deg_285deg,rgba(153,27,27,0.25)_310deg,#b91c1c_330deg,#ef4444_345deg,#b91c1c_358deg,#991b1b_360deg)] motion-reduce:animate-none"
                   />
                   <span className="relative z-10 flex items-center gap-2 px-2.5 pt-2 text-[10px] font-extrabold tracking-[0.18em] text-[#159447] min-[430px]:text-xs sm:gap-3 sm:px-4 sm:pt-3 sm:text-sm xl:px-5 xl:pt-4">
                     <span>{String(index + 1).padStart(2, "0")}</span>
