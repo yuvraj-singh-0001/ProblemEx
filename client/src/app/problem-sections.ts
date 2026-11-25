@@ -1,5 +1,5 @@
 export const problemSections = [
-  "The Problem",
+  "What Is the Problem?",
   "The Consequences of the Problem",
   "The Solution: ProblemEx",
   "What ProblemEx Is Not",
