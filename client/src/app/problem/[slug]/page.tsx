@@ -5,6 +5,12 @@ import type { Metadata } from "next";
 import { problemSections } from "@/app/problem-sections";
 import { problemSectionSlugs } from "@/app/problem-section-slugs";
 import Navbar from "@/app/components/navbar";
+import ScrollReveal from "@/app/components/scroll-reveal";
+import CorePhilosophyContent from "@/app/problem/core-philosophy-content";
+import TwelvePillarFrameworkContent, {
+  twelvePillarDescription,
+  twelvePillarKeywords,
+} from "@/app/problem/twelve-pillar-framework-content";
 
 type ProblemPageProps = {
   params: Promise<{ slug: string }>;
@@ -170,6 +176,70 @@ const consequencesPoints = [
   },
 ];
 
+const notProblemExIntroduction = [
+  "We know the name might make you think of a few things. And you wouldn't be entirely wrong!",
+  "ProblemEx may sound like a programme that belongs to one of several familiar categories of learning, training or development. But it isn't quite any of them. And yet, you'll find elements of many of them woven into what ProblemEx actually does.",
+];
+
+const notProblemExLead = "Let's clear up a few misconceptions.";
+
+const notProblemExPoints = [
+  {
+    title: "We Are Not an Academic Teaching Programme",
+    not: "ProblemEx is not designed to teach conventional academic subjects, prepare students for examinations or replace classroom education.",
+    butLead: "But academic knowledge can certainly be a part of ProblemEx.",
+    butText: "When real-life situations demand the understanding or application of academic concepts, relevant knowledge becomes an integral part of the learning experience. Our focus, however, is not merely on imparting knowledge, but on helping individuals understand when, why and how that knowledge can be put to practical use.",
+  },
+  {
+    title: "We Are Not a Personality Development Programme",
+    not: "ProblemEx is not a conventional personality development course centred around appearance, mannerisms, confidence-building exercises, etiquette or communication techniques in isolation.",
+    butLead: "But personality development is an integral outcome of ProblemEx.",
+    butText: "As individuals learn to handle situations, overcome challenges, communicate effectively, make decisions, manage conflicts, take responsibility and deal with uncertainty, they naturally develop many of the qualities that contribute to a stronger, more mature and well-rounded personality.",
+  },
+  {
+    title: "We Are Not a Career Guidance or Career Counselling Institution",
+    not: "ProblemEx is not a conventional career counselling programme that primarily identifies career options, administers aptitude tests or recommends professions.",
+    butLead: "But ProblemEx can help individuals make better career choices.",
+    butText: "By developing the ability to assess situations, understand their strengths, evaluate opportunities, analyse practical realities, make informed decisions and navigate challenges, individuals become better equipped to choose, pursue and manage their careers.",
+  },
+  {
+    title: "We Are Not a Relationship Counselling Programme",
+    not: "ProblemEx is not a specialised relationship counselling service designed to address specific marital, familial, interpersonal or psychological problems.",
+    butLead: "But relationships are an important part of ProblemEx.",
+    butText: "Understanding people, communicating effectively, resolving disagreements, managing expectations, recognising boundaries, dealing with misunderstandings and navigating interpersonal situations are practical abilities that form an important part of our learning approach.",
+  },
+  {
+    title: "We Are Not a Mental Health Treatment or Therapy Programme",
+    not: "ProblemEx is not a clinical, psychological or therapeutic programme designed to diagnose or treat mental health conditions.",
+    butLead: "But mental well-being and emotional resilience matter in ProblemEx.",
+    butText: "Learning to navigate stressful situations, deal with setbacks, manage difficult circumstances, respond constructively to challenges and make better decisions can contribute to one's emotional resilience and overall well-being. These learning outcomes, however, do not replace professional mental health care where it is needed.",
+  },
+  {
+    title: "We Are Not a Conventional Life Skills Course",
+    not: "ProblemEx is not merely a collection of isolated lessons on communication, time management, decision-making, leadership, financial awareness or other life skills.",
+    butLead: "But life skills are very much a part of ProblemEx.",
+    butText: "Rather than treating these skills as disconnected topics, ProblemEx brings them into the context of real-life situations, where individuals must understand, combine and apply multiple abilities to navigate challenges and find solutions.",
+  },
+  {
+    title: "We Are Not a Vocational or Technical Training Institute",
+    not: "ProblemEx is not designed to impart specialised trade skills, technical qualifications or occupational training for specific professions.",
+    butLead: "But practical, vocational and livelihood-related situations can form part of ProblemEx.",
+    butText: "Understanding workplace situations, dealing with professional challenges, making practical decisions, navigating responsibilities, evaluating opportunities and handling real-world problems can help individuals become better equipped for employment, entrepreneurship and economic independence.",
+  },
+  {
+    title: "We Are Not a Conventional Coaching Programme",
+    not: "ProblemEx is not simply a motivational, inspirational or coaching programme that relies on advice, encouragement, lectures or goal-setting exercises.",
+    butLead: "But motivation, guidance, reflection and action can certainly be part of ProblemEx.",
+    butText: "Our approach can inspire individuals, encourage reflection, challenge assumptions, guide thinking and help them translate insights into practical responses. The emphasis, however, remains on developing the ability to handle real-life situations rather than merely feeling motivated to do so.",
+  },
+];
+
+const notProblemExConclusion = [
+  "And this is precisely what makes ProblemEx different. It isn't confined to a single discipline, category, course or conventional label. It draws upon relevant knowledge, skills, abilities and insights from multiple domains, bringing them together in the context of real-life situations.",
+  "We are not these programmes in their conventional, standalone form. But many of the valuable things they seek to accomplish are an integral part of ProblemEx.",
+  "Now that we've clarified what ProblemEx is not, let's understand what ProblemEx actually is, what makes it different, and how it works.",
+];
+
 export async function generateMetadata({
   params,
 }: ProblemPageProps): Promise<Metadata> {
@@ -185,7 +255,19 @@ export async function generateMetadata({
       ? "Today, we are witnessing some striking paradoxes in the world of education, academic achievement and its actual application in real life."
       : problemIndex === 1
         ? "Explore how difficulty navigating real-life situations can affect independence, decisions, relationships, employability, financial stability and peace of mind."
-        : `${getProblemTitle(slug)} — a ProblemEx learning section.`;
+        : problemIndex === 2
+          ? "ProblemEx by TTT introduces situational knowledge and practical skills for navigating real-life problems and challenges."
+          : problemIndex === 3
+            ? "Learn what ProblemEx is not, and how it differs from academic teaching, personality development, career guidance, counselling, therapy and conventional life-skills courses."
+            : `${getProblemTitle(slug)} — a ProblemEx learning section.`;
+  const philosophyDescription =
+    "Explore the core philosophy of ProblemEx: Situational Knowledge, the Situational Knowledge Quotient (SKQ), and the Situational Knowledge Index (SKI) for developing and measuring real-life abilities.";
+  const pageDescription =
+    problemIndex === 4
+      ? philosophyDescription
+      : problemIndex === 5
+        ? twelvePillarDescription
+        : description;
   const keywords =
     problemIndex === 0
       ? [
@@ -214,17 +296,54 @@ export async function generateMetadata({
             "critical thinking",
             "life skills",
           ]
-        : ["ProblemEx", getProblemTitle(slug), "real-life problems"];
+        : problemIndex === 2
+          ? [
+              "ProblemEx by TTT",
+              "situational knowledge",
+              "practical skills for real-life problems",
+              "real-life problem-solving",
+              "practical life skills",
+              "decision-making skills",
+              "real-life challenges",
+            ]
+          : problemIndex === 3
+            ? [
+                "ProblemEx by TTT",
+                "what ProblemEx is not",
+                "practical skills for real-life situations",
+                "real-life problem-solving",
+                "life skills education",
+                "career guidance and life skills",
+                "vocational and technical training",
+                "decision-making and communication skills",
+              ]
+            : problemIndex === 4
+              ? [
+                  "ProblemEx core philosophy",
+                  "situational knowledge",
+                  "Situational Knowledge Quotient",
+                  "SKQ framework",
+                  "Situational Knowledge Index",
+                  "SKI assessment",
+                  "real-life problem-solving skills",
+                  "practical decision-making",
+                  "developing situational awareness",
+                ]
+                : problemIndex === 5
+                  ? twelvePillarKeywords
+                  : ["ProblemEx", getProblemTitle(slug), "real-life problems"];
+  const pageTitle =
+    problemIndex === 2 ? "Introducing ProblemEx" : getProblemTitle(slug);
 
   return {
-    title: getProblemTitle(slug),
-    description,
+    title: pageTitle,
+    description: pageDescription,
     keywords,
-    ...(problemIndex <= 1
+    ...(problemIndex <= 5
       ? {
           openGraph: {
-            title: getProblemTitle(slug),
-            description,
+            title: pageTitle,
+            description: pageDescription,
             type: "article" as const,
           },
         }
@@ -278,7 +397,9 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
       <section className="relative mx-auto w-full max-w-7xl py-2 sm:py-4">
         <header className="px-2 py-7 text-center sm:py-10">
           <h1 className="mx-auto inline-block bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-3xl font-extrabold tracking-tight text-transparent sm:text-5xl">
-            {getProblemTitle(slug)}
+            {problemIndex === 2
+              ? "Introducing ProblemEx"
+              : getProblemTitle(slug)}
           </h1>
         </header>
         {problemIndex === 0 ? (
@@ -302,10 +423,9 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
             </div>
             <div className="mx-auto mt-14 grid max-w-7xl grid-cols-1 gap-4 text-left sm:mt-20 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
               {problemPoints.map((point, index) => (
+                <ScrollReveal className="h-full" delay={(index % 3) * 70} key={point.title}>
                 <article
-                  className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-t-4 bg-gradient-to-br p-5 shadow-[0_10px_30px_rgba(16,43,80,0.06)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(16,43,80,0.12)] motion-reduce:animate-none sm:rounded-3xl sm:p-6 ${problemCardThemes[index]}`}
-                  key={point.title}
-                  style={{ animationDelay: `${index * 65}ms` }}
+                  className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-t-4 bg-gradient-to-br p-5 shadow-[0_10px_30px_rgba(16,43,80,0.06)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(16,43,80,0.12)] sm:rounded-3xl sm:p-6 ${problemCardThemes[index]}`}
                 >
                   <p className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-xs font-extrabold tracking-[0.08em] ring-1 ring-black/5 shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5 sm:h-12 sm:w-12 sm:rounded-2xl sm:text-sm ${problemCardThemes[index].split(" ").pop()}`}>
                     {String(index + 1).padStart(2, "0")}.
@@ -320,6 +440,7 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
                     </p>
                   </div>
                 </article>
+                </ScrollReveal>
               ))}
             </div>
             <section className="relative isolate mx-auto mt-20 w-full max-w-5xl py-12 text-left sm:mt-28 sm:py-16 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#eaf3ef]">
@@ -331,7 +452,8 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
               </p>
               <div className="mt-8 sm:mt-12">
                 {whyProblemPoints.map((point, index) => (
-                  <article className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 border-t border-[#d4e0e8] py-7 first:border-t-0 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 sm:py-9" key={point.title}>
+                  <ScrollReveal className="border-t border-[#d4e0e8] first:border-t-0" key={point.title} delay={(index % 4) * 55}>
+                  <article className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 py-7 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 sm:py-9">
                     <p className="pt-1 text-sm font-extrabold tracking-[0.08em] text-[#159447] sm:text-base">
                       {index + 1}.
                     </p>
@@ -360,6 +482,7 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
                       )}
                     </div>
                   </article>
+                  </ScrollReveal>
                 ))}
               </div>
             </section>
@@ -390,10 +513,9 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
             </div>
             <div className="mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-4 text-left sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
               {consequencesPoints.map((point, index) => (
+                <ScrollReveal className="h-full" delay={(index % 3) * 70} key={point.title}>
                 <article
-                  className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-t-4 bg-gradient-to-br p-5 shadow-[0_10px_30px_rgba(16,43,80,0.06)] animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards] transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(16,43,80,0.12)] motion-reduce:animate-none sm:rounded-3xl sm:p-6 ${problemCardThemes[index % problemCardThemes.length]}`}
-                  key={point.title}
-                  style={{ animationDelay: `${index * 55}ms` }}
+                  className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-t-4 bg-gradient-to-br p-5 shadow-[0_10px_30px_rgba(16,43,80,0.06)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(16,43,80,0.12)] sm:rounded-3xl sm:p-6 ${problemCardThemes[index % problemCardThemes.length]}`}
                 >
                   <p className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-xs font-extrabold tracking-[0.08em] ring-1 ring-black/5 shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5 sm:h-12 sm:w-12 sm:rounded-2xl sm:text-sm ${problemCardThemes[index % problemCardThemes.length].split(" ").pop()}`}>
                     {index + 1}.
@@ -408,9 +530,142 @@ async function ProblemPageContent({ params }: ProblemPageProps) {
                     </p>
                   </div>
                 </article>
+                </ScrollReveal>
               ))}
             </div>
           </>
+        ) : problemIndex === 2 ? (
+          <div className="mx-auto mt-5 w-full max-w-5xl space-y-12 text-left sm:mt-8 sm:space-y-16">
+            <ScrollReveal delay={0}>
+            <section>
+              <div className="mt-8 text-center sm:mt-10">
+                <h2 className="text-2xl font-bold tracking-tight text-[#102b50] sm:text-3xl">
+                  ProblemEx by TTT
+                </h2>
+                <p className="mt-3 bg-gradient-to-r from-[#e11d48] via-[#c2410c] to-[#15803d] bg-clip-text text-lg font-bold text-transparent sm:text-2xl">
+                  Practical Skills to Exit Real-Life Problems
+                </p>
+              </div>
+              <div className="mt-7 space-y-5 sm:mt-9 sm:space-y-6">
+                <p className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
+                  The real world presents us with countless practical problems, challenges, difficult situations and dilemmas. Navigating them requires more than merely possessing knowledge. It requires the ability to confront situations, think clearly, make appropriate choices and find a way forward. It requires what we term as the “Situational Knowledge”.
+                </p>
+                <p className="border-l-4 border-[#159447] pl-5 text-pretty text-lg font-semibold leading-8 text-[#183b61] sm:pl-7 sm:text-xl sm:leading-9">
+                  ProblemEx by TTT is our initiative to help individuals develop the practical abilities to navigate these real-life challenges by providing them “Situational Knowledge”.
+                </p>
+              </div>
+            </section>
+            </ScrollReveal>
+
+            <ScrollReveal delay={50}>
+            <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
+              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
+                Why the Name ProblemEx?
+              </h2>
+              <p className="mt-5 inline-flex rounded-xl bg-gradient-to-r from-[#e8f0fa] to-[#e8f6ee] px-5 py-3 text-xl font-extrabold tracking-tight text-[#147b4b] sm:text-2xl">
+                ProblemEx = Problems + Exit.
+              </p>
+              <p className="mt-5 text-pretty text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
+                The name ProblemEx embodies a simple yet powerful idea: equipping the individuals with the practical skills through which they can exit from the real-life problems, through which they can proudly say that this is my “Ex Problem”, which no longer exists in my life
+              </p>
+              <blockquote className="mt-6 border-l-4 border-[#ed1c24] pl-5 text-pretty text-lg italic leading-8 text-[#183b61] sm:mt-8 sm:pl-7 sm:text-xl sm:leading-9">
+                Imagine being able to look back at the challenges that once troubled you and proudly say, &quot;These were the problems of my life. They are no longer problems in my life.&quot;
+              </blockquote>
+              <p className="mt-5 text-base font-semibold text-[#147b4b] sm:text-lg">
+                That is the spirit behind ProblemEx.
+              </p>
+            </section>
+            </ScrollReveal>
+
+            <ScrollReveal delay={50}>
+            <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
+              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
+                Our Tagline: Practical Skills to Exit Real-Life Problems
+              </h2>
+              <div className="mt-5 space-y-5 text-pretty text-base leading-7 text-slate-700 sm:mt-6 sm:space-y-6 sm:text-lg sm:leading-8">
+                <p>
+                  Our tagline captures the essence of ProblemEx. The programme is centred around the practical skills and abilities required to navigate the problems, challenges, situations and dilemmas that individuals encounter in their everyday lives.
+                </p>
+                <p>
+                  It is about equipping individuals not merely to know, but to handle. Not merely to understand problems, but to confront them, navigate them and find a way forward.
+                </p>
+              </div>
+            </section>
+            </ScrollReveal>
+
+            <ScrollReveal delay={50}>
+            <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
+              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
+                But First, Let&apos;s Clear Something Up!
+              </h2>
+              <div className="mt-5 space-y-5 text-pretty text-base leading-7 text-slate-700 sm:mt-6 sm:space-y-6 sm:text-lg sm:leading-8">
+                <p>
+                  Before we explain what our program ProblemEx actually is and how it works, let&apos;s first clarify what it is <strong>not</strong>.
+                </p>
+                <p>
+                  Because when we talk about practical skills, real-life learning and solving life&apos;s problems, people tend to associate them with all sorts of programmes, courses and initiatives. And we&apos;d rather clear up those misconceptions first than leave you guessing!
+                </p>
+              </div>
+            </section>
+            </ScrollReveal>
+          </div>
+        ) : problemIndex === 3 ? (
+          <>
+            <div className="mx-auto mt-5 max-w-6xl space-y-5 text-left sm:mt-7 sm:space-y-6">
+              {notProblemExIntroduction.map((paragraph) => (
+                <p
+                  className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8"
+                  key={paragraph}
+                >
+                  {paragraph}
+                </p>
+              ))}
+              <p className="pt-2 text-pretty text-lg font-bold text-[#147b4b] sm:pt-4 sm:text-xl">
+                {notProblemExLead}
+              </p>
+            </div>
+            <div className="relative mx-auto mt-8 max-w-6xl text-left before:absolute before:bottom-5 before:left-5 before:top-5 before:w-px before:bg-gradient-to-b before:from-[#ed1c24]/70 before:via-[#159447]/50 before:to-transparent sm:mt-12 sm:before:left-6">
+              {notProblemExPoints.map((point, index) => (
+                <ScrollReveal delay={(index % 4) * 55} key={point.title}>
+                <article
+                  className={`relative grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 border-b border-[#d4e0e8]/80 py-7 last:border-b-0 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-6 sm:py-9 ${index === 0 ? "pt-0" : ""}`}
+                >
+                  <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-[#fff1ee] to-[#e6f5ed] text-xs font-extrabold text-[#147b4b] ring-1 ring-[#159447]/15 sm:h-12 sm:w-12 sm:text-sm">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0">
+                    <h2 className="text-balance text-xl font-extrabold leading-snug tracking-[-0.02em] text-[#102b50] sm:text-2xl">
+                      {point.title}
+                    </h2>
+                    <p className="mt-4 border-l-2 border-[#ed1c24]/60 pl-4 text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                      {point.not}
+                    </p>
+                    <p className="mt-5 border-l-2 border-[#159447]/60 pl-4 text-pretty text-base font-bold leading-7 text-[#147b4b] sm:text-lg sm:leading-8">
+                      {point.butLead}
+                    </p>
+                    <p className="mt-2 pl-4 text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                      {point.butText}
+                    </p>
+                  </div>
+                </article>
+                </ScrollReveal>
+              ))}
+            </div>
+            <div className="mx-auto mt-14 max-w-6xl space-y-5 border-t border-[#d4e0e8] pt-8 text-left sm:mt-20 sm:space-y-6 sm:pt-12">
+              {notProblemExConclusion.map((paragraph, index) => (
+                <p
+                  className={`text-pretty text-[17px] leading-7 sm:text-[19px] sm:leading-8 ${index === 2 ? "font-semibold text-[#183b61]" : "text-slate-700"}`}
+                  key={paragraph}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </>
+        ) : problemIndex === 4 ? (
+          <CorePhilosophyContent />
+        ) : problemIndex === 5 ? (
+          <TwelvePillarFrameworkContent />
         ) : (
           <p className="mx-auto mt-8 max-w-xl rounded-2xl border border-[#dce6ed] bg-white/85 px-6 py-8 text-center text-base leading-7 text-slate-600 sm:text-lg">
             This ProblemEx section is ready for its learning content.
