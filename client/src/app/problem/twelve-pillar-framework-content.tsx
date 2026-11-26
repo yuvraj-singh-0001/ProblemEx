@@ -50,56 +50,136 @@ const professionalPillar = {
 };
 
 const pillarThemes = [
-  { ring: "border-[#227f99]", soft: "bg-[#edf4f8]", mark: "text-[#176d88]", color: "#176d88", line: "from-[#176d88] to-[#176d88]/15" },
-  { ring: "border-[#268a62]", soft: "bg-[#edf8f2]", mark: "text-[#147b4b]", color: "#147b4b", line: "from-[#147b4b] to-[#147b4b]/15" },
-  { ring: "border-[#348ca0]", soft: "bg-[#edf7f8]", mark: "text-[#16768b]", color: "#16768b", line: "from-[#16768b] to-[#16768b]/15" },
-  { ring: "border-[#278e7c]", soft: "bg-[#eef8f5]", mark: "text-[#117b68]", color: "#117b68", line: "from-[#117b68] to-[#117b68]/15" },
-  { ring: "border-[#c08a24]", soft: "bg-[#fff8e9]", mark: "text-[#a86a11]", color: "#a86a11", line: "from-[#a86a11] to-[#a86a11]/15" },
-  { ring: "border-[#c95545]", soft: "bg-[#fff2ee]", mark: "text-[#b54437]", color: "#b54437", line: "from-[#b54437] to-[#b54437]/15" },
+  { gradient: "from-[#176d88] to-[#1b788b]", accent: "#147b94" },
+  { gradient: "from-[#147b4b] to-[#168356]", accent: "#147b4b" },
+  { gradient: "from-[#126a80] to-[#176f80]", accent: "#126a80" },
+  { gradient: "from-[#117b68] to-[#16806f]", accent: "#117b68" },
+  { gradient: "from-[#87540c] to-[#95600f]", accent: "#87540c" },
+  { gradient: "from-[#9d392d] to-[#a84334]", accent: "#9d392d" },
 ];
 
-type PillarColumnProps = {
+type PillarInfographicProps = {
   title: string;
   subPillars: { title: string; detail?: string }[];
   index: number;
   delay?: number;
 };
 
-function PillarColumn({ title, subPillars, index, delay = 0 }: PillarColumnProps) {
+function PillarIcon({ label, className = "" }: { label: string; className?: string }) {
+  const text = label.toLowerCase();
+  const kind = text.includes("financial") || text.includes("banking") || text.includes("finance")
+      ? "bank"
+      : text.includes("consumer") || text.includes("marketplace")
+        ? "cart"
+      : text.includes("contract") || text.includes("notice") || text.includes("procedure")
+        ? "document"
+        : text.includes("legal") || text.includes("rights") || text.includes("law enforcement")
+          ? "scales"
+          : text.includes("cybersecurity") || text.includes("fraud") || text.includes("protection") || text.includes("security")
+            ? "shield"
+            : text.includes("digital") || text.includes("technology") || text.includes("gadget") || text.includes("ai usage")
+              ? "device"
+              : text.includes("mental") || text.includes("psychological") || text.includes("addiction") || text.includes("emotional")
+                ? "mind"
+                : text.includes("medical") || text.includes("health") || text.includes("nutrition") || text.includes("illness")
+                  ? "medical"
+                  : text.includes("accident") || text.includes("disaster") || text.includes("emergency") || text.includes("harassment")
+                    ? "shield"
+                    : text.includes("cultural") || text.includes("religious") || text.includes("social") || text.includes("interpersonal")
+                      ? "people"
+                      : text.includes("government") || text.includes("public service") || text.includes("institution") || text.includes("organisation")
+                        ? "building"
+                        : text.includes("home") || text.includes("property") || text.includes("household")
+                          ? "home"
+                          : text.includes("travel") || text.includes("transport") || text.includes("mobility")
+                            ? "travel"
+                            : text.includes("communication") || text.includes("speaking") || text.includes("presentation")
+                              ? "speech"
+                              : text.includes("personality") || text.includes("self-awareness") || text.includes("self-esteem") || text.includes("peer")
+                                ? "person"
+                                : text.includes("academic") || text.includes("student") || text.includes("career") || text.includes("skill development")
+                                  ? "book"
+                                  : text.includes("workplace") || text.includes("employment") || text.includes("professional")
+                                    ? "briefcase"
+                                    : text.includes("family") || text.includes("marriage") || text.includes("partner")
+                                      ? "family"
+                                      : "people";
+
+  const common = { stroke: "currentColor", strokeLinecap: "round" as const, strokeLinejoin: "round" as const, strokeWidth: 1.7 };
+
+  return (
+    <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 24 24" {...common}>
+      {kind === "cart" && <><path d="M3 4h2l2.2 11.5h11L21 8H6M9 19.5h.01M18 19.5h.01" /><circle cx="9" cy="19.5" r="1.5" /><circle cx="18" cy="19.5" r="1.5" /><path d="M8 11h11M11 8.5l1 7M16 8.5l-1 7" /></>}
+      {kind === "bank" && <path d="M3 8h18M5 8v10m4-10v10m6-10v10m4-10v10M3 19h18M2 21h20M4 6l8-4 8 4" />}
+      {kind === "building" && <><path d="M3 21h18M5 21V8h14v13M5 8l7-5 7 5M8 11h2m4 0h2m-8 4h2m4 0h2" /><path d="M12 3V1m0 0h4l-1.5 2" /></>}
+      {kind === "scales" && <path d="M12 3v18M5 6h14M7 6l-4 7h8L7 6Zm10 0-4 7h8l-4-7ZM5 21h14" />}
+      {kind === "document" && <><path d="M7 3h7l4 4v14H7zM14 3v5h5M10 12h5M10 16h5" /></>}
+      {kind === "device" && <><rect x="4" y="3" width="16" height="14" rx="2" /><path d="M2 21h20M9 17v4m6-4v4" /><circle cx="12" cy="10" r="2.5" /></>}
+      {kind === "shield" && <><path d="M12 2 20 5v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></>}
+      {kind === "medical" && <><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z" /><path d="M12 9v6m-3-3h6" /></>}
+      {kind === "people" && <><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9" r="2.5" /><path d="M3 20c.3-3.5 2.3-5.5 6-5.5s5.7 2 6 5.5M15 15c3.6-.5 5.7 1.3 6 4" /></>}
+      {kind === "mind" && <><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z" /><path d="M8.5 12h2l1.2-2.5 1.5 5 1.1-2.5h1.2" /></>}
+      {kind === "home" && <><path d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7" /></>}
+      {kind === "travel" && <><path d="M3 15h18l-2-6H6l-3 6Zm2 0v3h14v-3M7 18v2m10-2v2" /><circle cx="7" cy="15" r="1" /><circle cx="17" cy="15" r="1" /></>}
+      {kind === "speech" && <><path d="M4 5h16v11H9l-5 4V5Z" /><path d="M8 9h8M8 12h5" /></>}
+      {kind === "person" && <><circle cx="12" cy="7" r="4" /><path d="M4 21c.5-5 3.2-7.5 8-7.5s7.5 2.5 8 7.5" /></>}
+      {kind === "book" && <><path d="M3 5.5c3.5-1.5 6.5-.8 9 1.5v14c-2.5-2.3-5.5-3-9-1.5v-14Zm18 0c-3.5-1.5-6.5-.8-9 1.5v14c2.5-2.3 5.5-3 9-1.5v-14Z" /></>}
+      {kind === "briefcase" && <><rect x="3" y="8" width="18" height="12" rx="2" /><path d="M8 8V5h8v3M3 13h18m-11 0v2h4v-2" /></>}
+      {kind === "family" && <><circle cx="8" cy="8" r="3" /><circle cx="16" cy="8" r="3" /><path d="M2.5 20c.3-4 2.2-6 5.5-6s5.2 2 5.5 6m-1 0c.3-4 2.2-6 5.5-6s5.2 2 5.5 6" /></>}
+    </svg>
+  );
+}
+
+function PillarInfographic({ title, subPillars, index, delay = 0 }: PillarInfographicProps) {
   const theme = pillarThemes[index % pillarThemes.length];
   const displayTitle = title.replace(/^Pillar \d+\.\s*/, "");
 
   return (
-    <ScrollReveal className="h-full min-w-0" delay={delay}>
-      <article className="group flex h-full min-w-0 flex-col items-center px-1 text-center">
-        <div className={`relative flex h-24 w-24 items-center justify-center rounded-full border-[5px] bg-white p-2 shadow-[0_12px_28px_rgba(16,43,80,0.14)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_18px_36px_rgba(16,43,80,0.2)] sm:h-28 sm:w-28 ${theme.ring}`}>
-          <span className={`flex h-full w-full items-center justify-center rounded-full ${theme.soft} ${theme.mark}`}>
-            <svg aria-hidden="true" className="h-9 w-9 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24">
-              <path d="M5 6h14M7 6v12m10-12v12M5 18h14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
-            </svg>
-          </span>
+    <ScrollReveal className="min-w-0" delay={delay}>
+      <section aria-label={displayTitle} className="relative mx-auto w-full max-w-2xl pb-8 pt-2">
+        <h3 className="mb-4 text-center text-balance text-lg font-extrabold leading-snug text-[#102b50] sm:text-xl">{displayTitle}</h3>
+        <div className="relative mx-auto h-44 w-full sm:h-48">
+          <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-0 hidden h-8 w-full overflow-visible lg:block" preserveAspectRatio="none" viewBox="0 0 1200 80">
+            {subPillars.length === 3 ? (
+              <>
+                <path d="M478 0 C420 12 354 36 300 72 L288 52 C348 24 411 4 478 -8 Z M600 0 C600 24 600 48 600 72 L584 72 C584 45 584 20 584 -2 Z M722 0 C780 12 846 36 900 72 L912 52 C852 24 789 4 722 -8 Z" fill="#dce8ed" />
+                <path d="M478 0 C420 10 354 33 300 68 L294 57 C352 29 414 9 478 -3 Z M600 0 C600 24 600 48 600 68 L592 68 C592 45 592 20 592 -2 Z M722 0 C780 10 846 33 900 68 L906 57 C848 29 786 9 722 -3 Z" fill={theme.accent} />
+              </>
+            ) : (
+              <>
+                <path d="M478 2 C420 12 354 36 300 72 L288 52 C348 24 411 4 478 -8 Z" fill="#dce8ed" />
+                <path d="M478 0 C420 10 354 33 300 68 L294 57 C352 29 414 9 478 -3 Z" fill={theme.accent} />
+                <path d="M722 2 C780 12 846 36 900 72 L912 52 C852 24 789 4 722 -8 Z" fill="#dce8ed" />
+                <path d="M722 0 C780 10 846 33 900 68 L906 57 C848 29 786 9 722 -3 Z" fill={theme.accent} />
+              </>
+            )}
+          </svg>
+          <div className="group absolute left-1/2 top-0 z-10 flex h-40 w-40 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-[#365b6b] bg-white p-2.5 shadow-[0_12px_24px_rgba(16,43,80,0.2)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_30px_rgba(16,43,80,0.28)] motion-reduce:transform-none sm:h-44 sm:w-44 sm:border-[7px]">
+            <div aria-hidden="true" className="flex h-full w-full items-center justify-center rounded-full border border-[#e3e9ec] bg-gradient-to-br from-white to-[#f4f7f9] text-[color:var(--pillar-accent)] shadow-inner" style={{ "--pillar-accent": theme.accent } as React.CSSProperties}>
+              <PillarIcon className="h-12 w-12 transition-transform duration-300 group-hover:-translate-y-0.5 sm:h-14 sm:w-14" label={displayTitle} />
+            </div>
+          </div>
         </div>
-        <h3 className="mt-4 break-words text-balance text-lg font-extrabold leading-snug text-[#102b50] sm:text-xl">
-            {displayTitle}
-        </h3>
-        <div aria-hidden="true" className="relative mt-3 h-6 w-full">
-          <span className={`absolute bottom-0 left-1/2 top-0 w-0.5 -translate-x-1/2 bg-gradient-to-b ${theme.line}`} />
-          <span className={`absolute bottom-0 left-2 right-1/2 h-0.5 bg-gradient-to-r ${theme.line}`} />
+
+        <div className={`relative z-10 mx-auto -mt-1 grid w-full min-w-0 grid-cols-1 gap-x-4 gap-y-10 px-2 sm:max-w-xl sm:px-3 lg:max-w-2xl lg:gap-x-5 ${subPillars.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+          {subPillars.map((subPillar, subIndex) => {
+            const subNumber = String(subIndex + 1).padStart(2, "0");
+            const subTitle = subPillar.title.replace(/^\d+(?:\.\d+)+\s*/, "");
+            return (
+              <div className={subPillars.length === 3 && subIndex === 1 ? "lg:mt-10" : ""} key={subPillar.title}>
+                <article className={`group relative flex h-full min-h-64 min-w-0 flex-col items-center rounded-b-[4rem] rounded-t-[3.5rem] bg-gradient-to-br ${theme.gradient} px-3 pb-4 pt-20 text-center text-white shadow-[0_12px_24px_rgba(16,43,80,0.17)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(16,43,80,0.22)] sm:min-h-72 sm:px-4 sm:pb-5 sm:pt-24`}>
+                  <div aria-hidden="true" className="absolute -top-3 left-1/2 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-white bg-gradient-to-br from-white to-[#eef4f6] text-[color:var(--pillar-accent)] shadow-[0_8px_18px_rgba(16,43,80,0.2)] sm:-top-4 sm:h-24 sm:w-24" style={{ "--pillar-accent": theme.accent } as React.CSSProperties}>
+                    <PillarIcon className="h-10 w-10 sm:h-12 sm:w-12" label={subPillar.title} />
+                  </div>
+                  <h4 className="mx-auto w-full max-w-xs break-words text-pretty text-xs font-bold leading-snug sm:text-sm sm:leading-5">{subTitle}</h4>
+                  {subPillar.detail && <p className="mt-2 text-xs leading-5 text-white/95 sm:text-sm">{subPillar.detail}</p>}
+                  <span aria-hidden="true" className="mt-auto pt-5 text-4xl font-black tracking-tight text-white/75 sm:text-5xl">{subNumber}</span>
+                </article>
+              </div>
+            );
+          })}
         </div>
-        <ul className="relative w-full space-y-2.5 pl-5 before:absolute before:bottom-3 before:left-2 before:top-0 before:w-0.5 before:rounded-full before:bg-gradient-to-b before:from-[#b8cbd5] before:to-transparent">
-            {subPillars.map((subPillar) => (
-              <li className="relative min-w-0 rounded-xl border border-[#dce6ed] bg-white/90 px-3 py-3 text-left text-sm leading-6 text-slate-600 shadow-[0_5px_15px_rgba(16,43,80,0.055)] before:absolute before:-left-3 before:top-[1.15rem] before:h-0.5 before:w-3 before:bg-[#b8cbd5] sm:px-4 sm:text-base sm:leading-7" key={subPillar.title}>
-                <span aria-hidden="true" className="absolute -left-4 top-[0.9rem] h-2.5 w-2.5 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: theme.color }} />
-                <span className="min-w-0 break-words">
-                  <span>
-                  {subPillar.title}
-                  {subPillar.detail && <span className="mt-1 block text-[13px] italic leading-5 text-slate-500 sm:text-sm sm:leading-6">{subPillar.detail}</span>}
-                  </span>
-                </span>
-              </li>
-            ))}
-        </ul>
-      </article>
+      </section>
     </ScrollReveal>
   );
 }
@@ -183,7 +263,7 @@ export default function TwelvePillarFrameworkContent() {
       <ScrollReveal>
         <section className="relative isolate py-8 sm:py-12 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-gradient-to-r before:from-[#eaf3ef] before:via-[#f3f7fa] before:to-[#eef5f7]">
           <div aria-hidden="true" className="pointer-events-none absolute -right-8 top-0 -z-10 h-52 w-52 rounded-full bg-emerald-300/15 blur-3xl sm:h-72 sm:w-72" />
-          <h2 className={sectionHeading}>A. Understanding the 12-Pillar Framework</h2>
+          <h2 className={sectionHeading}>Understanding the 12-Pillar Framework</h2>
           <div className="mt-6 space-y-5">
             <p className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
               Real-life situations, problems, challenges and dilemmas come in all shapes and forms. Each situation may demand a different combination of knowledge, skills, abilities, judgement and responses. The requirements of one situation may be entirely different from those of another.
@@ -201,7 +281,7 @@ export default function TwelvePillarFrameworkContent() {
 
       <ScrollReveal>
         <section>
-          <h2 className={sectionHeading}>B. Understanding the Scope and Limitations of the Framework</h2>
+          <h2 className={sectionHeading}>Understanding the Scope and Limitations of the Framework</h2>
           <div className="mt-7 grid gap-x-8 gap-y-10 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-10">
             {frameworkLimitations.map((item, index) => (
               <ScrollReveal className="border-t-2 border-[#159447]/70 pt-5 sm:pt-6" delay={(index % 3) * 70} key={item.title}>
@@ -233,9 +313,9 @@ export default function TwelvePillarFrameworkContent() {
             </p>
           </div>
 
-          <div className="mt-7 grid w-full min-w-0 grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 sm:gap-y-9 lg:gap-x-8">
+          <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-20 sm:mt-16 sm:gap-y-24 lg:grid-cols-2 2xl:grid-cols-3">
             {studentPillars.map((pillar, index) => (
-              <PillarColumn
+              <PillarInfographic
                 delay={(index % 3) * 55}
                 index={index}
                 key={pillar.title}
@@ -252,12 +332,8 @@ export default function TwelvePillarFrameworkContent() {
           <h2 className="text-balance text-xl font-extrabold leading-snug text-[#102b50] sm:text-2xl">
             This Pillar will substitute “Pillar 11. Academics, Student-Life &amp; Career Readiness Situations” when the program is pitched for the working professionals instead of students:
           </h2>
-          <div className="mx-auto mt-7 w-full max-w-3xl">
-            <PillarColumn
-              index={5}
-              subPillars={professionalPillar.subPillars}
-              title={professionalPillar.title}
-            />
+          <div className="mt-14">
+            <PillarInfographic index={10} subPillars={professionalPillar.subPillars} title={professionalPillar.title} />
           </div>
           <p className="mt-7 text-pretty text-base font-bold leading-7 text-[#102b50] sm:text-lg sm:leading-8">
             So this is the final version of the decided nomenclature of 12 pillars and 30 sub-pillars for students and of 12 pillars and 31 sub-pillars for the teachers or professionals. Pillar number 11 will be replaced.

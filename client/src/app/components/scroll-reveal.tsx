@@ -36,7 +36,9 @@ export default function ScrollReveal({
         element.classList.add("scroll-reveal-visible");
         observer.unobserve(element);
       },
-      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" },
+      // Large sections can be taller than the viewport; reveal them as soon
+      // as any part enters view instead of waiting for an unreachable ratio.
+      { threshold: 0, rootMargin: "0px" },
     );
 
     observer.observe(element);
