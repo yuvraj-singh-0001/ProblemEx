@@ -25,9 +25,11 @@ const introLines = [
 ];
 const introCompleteKey = "problemex-intro-complete";
 const handledDocumentKey = "problemex-intro-handled-document";
+const returnToHomeCardsKey = "problemex-return-to-home-cards";
 
 export default function HomeHero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const cardsRef = useRef<HTMLElement>(null);
   const [typedLines, setTypedLines] = useState(["", ""]);
   const [phase, setPhase] = useState<
     "checking" | "entering" | "typing" | "zooming" | "buttons" | "buttons-static"
@@ -35,6 +37,19 @@ export default function HomeHero() {
   const showButtons = phase === "buttons" || phase === "buttons-static";
 
   useEffect(() => {
+    const restoreHomeCards = () => {
+      if (window.sessionStorage.getItem(returnToHomeCardsKey) !== "true") {
+        return;
+      }
+
+      window.sessionStorage.removeItem(returnToHomeCardsKey);
+      window.sessionStorage.setItem(introCompleteKey, "true");
+      setPhase("buttons-static");
+      window.requestAnimationFrame(() => {
+        cardsRef.current?.scrollIntoView({ block: "start", behavior: "auto" });
+      });
+    };
+
     const navigation = performance.getEntriesByType(
       "navigation",
     )[0] as PerformanceNavigationTiming | undefined;
@@ -49,12 +64,21 @@ export default function HomeHero() {
     window.sessionStorage.setItem(handledDocumentKey, documentToken);
 
     const introComplete =
-      window.sessionStorage.getItem(introCompleteKey) === "true";
+      window.sessionStorage.getItem(introCompleteKey) === "true" ||
+      window.sessionStorage.getItem(returnToHomeCardsKey) === "true";
     const initialPhaseFrame = window.requestAnimationFrame(() => {
       setPhase(introComplete ? "buttons-static" : "entering");
+      restoreHomeCards();
     });
 
-    return () => window.cancelAnimationFrame(initialPhaseFrame);
+    window.addEventListener("popstate", restoreHomeCards);
+    window.addEventListener("pageshow", restoreHomeCards);
+
+    return () => {
+      window.cancelAnimationFrame(initialPhaseFrame);
+      window.removeEventListener("popstate", restoreHomeCards);
+      window.removeEventListener("pageshow", restoreHomeCards);
+    };
   }, []);
 
   useEffect(() => {
@@ -188,7 +212,9 @@ export default function HomeHero() {
       )}
 
       <nav
+          id="home-problem-cards"
           aria-label="Problem pages"
+          ref={cardsRef}
           className={`relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1920px] flex-col px-2 pt-2 pb-6 sm:px-4 sm:pt-3 sm:pb-8 xl:px-6 xl:pt-4 xl:pb-10 ${showButtons ? "" : "pointer-events-none absolute inset-0 opacity-0"}`}
         >
           <header className="mb-2 flex shrink-0 justify-center sm:mb-3">
@@ -213,6 +239,7 @@ export default function HomeHero() {
                   href={getProblemSectionPath(problemSectionSlugs[index])}
                   onNavigate={() => {
                     window.sessionStorage.setItem(introCompleteKey, "true");
+                    window.sessionStorage.setItem(returnToHomeCardsKey, "true");
                     setPhase("buttons-static");
                   }}
                   style={{ animationDelay: `${index * 28}ms` }}

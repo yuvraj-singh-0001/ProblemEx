@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import Image from "next/image";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
+import { ProblemCardScrollRestorer } from "@/app/components/problem-card-navigation/problem-card-navigation";
 
 
 const problemIntroduction = [
@@ -82,13 +83,46 @@ const problemPointSlugs = [
   "insufficient-vocational-technical-practical-skills",
 ];
 
+const whyProblemSlugs = [
+  "flawed-objectives-and-priorities-of-education",
+  "knowledge-is-tested-its-application-is-not",
+  "real-life-case-studies-and-experiential-learning",
+  "individual-circumstances-struggles-and-achievements",
+  "real-world-demands-more-than-academic-and-technical-knowledge",
+  "schools-and-educators-operate-within-systemic-constraints",
+  "learning-priorities-and-a-changing-world",
+  "no-structured-approach-to-real-life-preparation",
+];
+
+const whyProblemTitles = [
+  "Flawed Objectives and Priorities of Education",
+  "Knowledge Is Tested, Its Application Is Not",
+  "Real-Life Case Studies and Experiential Learning Remain Undervalued",
+  "Individual Circumstances, Struggles and Achievements Are Rarely Accounted For",
+  "The Real World Demands More Than Academic and Technical Knowledge",
+  "Schools and Educators Operate Within Systemic Constraints",
+  "Learning Priorities Have Not Kept Pace with a Changing World",
+  "No Structured Approach Exists to Systematically Prepare Individuals for Real-Life Situations",
+];
+
+const whyCardThemes = [
+  "from-[#fff1e8] to-[#fffaf5] border-[#e9b48c] text-[#9a4f21]",
+  "from-[#e8f3ff] to-[#f8fbff] border-[#9fc6e8] text-[#285b86]",
+  "from-[#ecf8f1] to-[#f8fcf9] border-[#a9d6bd] text-[#276747]",
+  "from-[#f5edff] to-[#fcf9ff] border-[#c7b0e6] text-[#68469a]",
+  "from-[#fff5df] to-[#fffdf7] border-[#e4ca85] text-[#80621d]",
+  "from-[#e8f7f7] to-[#f8fdfd] border-[#9bcfd0] text-[#286b6c]",
+  "from-[#fff0f2] to-[#fffafb] border-[#e5b1bb] text-[#963e53]",
+  "from-[#edf0ff] to-[#fafaff] border-[#b4bce8] text-[#4b5794]",
+];
+
 const problemCardThemes = [
-  "border-[#f1d3d0] border-t-[#ef4444] from-[#fff2ef] via-white to-[#fff8f5] text-[#c73532]",
-  "border-[#f1dfc3] border-t-[#f59e0b] from-[#fff8e8] via-white to-[#fffaf2] text-[#b66a08]",
-  "border-[#d7e8c6] border-t-[#65a30d] from-[#f5faeb] via-white to-[#f8fbf3] text-[#4d7c0f]",
-  "border-[#c8e8e8] border-t-[#14b8a6] from-[#eafaf8] via-white to-[#f3fcfb] text-[#0f8177]",
-  "border-[#cfe0f5] border-t-[#3b82f6] from-[#eef5ff] via-white to-[#f6f9ff] text-[#2863b4]",
-  "border-[#e5d2ef] border-t-[#a855f7] from-[#faf2ff] via-white to-[#fcf8ff] text-[#8541b8]",
+  "border-[#f1c5be] border-t-[#ef4444] from-[#ffe7e2] via-[#fff0ed] to-[#ffd8d1] text-[#a83232]",
+  "border-[#ead3a0] border-t-[#f59e0b] from-[#fff2cb] via-[#fff7e5] to-[#ffe6ac] text-[#8d5809]",
+  "border-[#c9dca4] border-t-[#65a30d] from-[#e9f4cf] via-[#f3f8e4] to-[#d9ebae] text-[#496d13]",
+  "border-[#a9ddd5] border-t-[#14b8a6] from-[#d5f2ed] via-[#e7f8f5] to-[#bce9e1] text-[#0f756d]",
+  "border-[#b9d1f2] border-t-[#3b82f6] from-[#dceaff] via-[#edf4ff] to-[#c8dcff] text-[#285aa2]",
+  "border-[#d6b8e8] border-t-[#a855f7] from-[#f0defa] via-[#f7edfc] to-[#e5c9f4] text-[#75409b]",
 ];
 
 const whyProblemIntroduction = [
@@ -98,111 +132,7 @@ const whyProblemIntroduction = [
   "Let's examine some of the key reasons behind this persistent gap.",
 ];
 
-const whyProblemPoints = [
-  {
-    title: "Flawed Objectives and Priorities of Education",
-    subsections: [
-      {
-        title: "Excessive Emphasis on Memorisation and Rote Learning",
-        paragraphs: [
-          "Much of our educational journey continues to revolve around memorising information, reproducing textbook content, recalling facts and preparing for examinations. Students are often expected to remember what they have been taught, reproduce it accurately and secure good marks.",
-          "But how much of this actually prepares them to think independently, analyse situations, question assumptions, solve problems and apply knowledge when life demands it?",
-          "When the ability to recall information becomes the primary measure of learning, other equally important abilities can get pushed into the background. Understanding, critical thinking, practical application, creativity, reasoning and independent judgement deserve far greater emphasis than simply memorising answers and reproducing them in an examination.",
-          "After all, the objective of education should not be to produce individuals who can merely remember the right answers. It should also be to develop individuals who can think, understand and figure out the answers when they don't already know them.",
-        ],
-      },
-      {
-        title: "Learning What Matters Less, While Overlooking What Matters More",
-        paragraphs: [
-          "We spend years learning numerous concepts, facts, formulas, theories and information. But how often do we consciously learn the things that we genuinely need to navigate everyday life?",
-          "How to recognise a scam? How to read the fine print before signing a document? How to handle a disagreement without turning it into a confrontation? How to make an informed financial decision? How to recognise manipulation? How to respond when someone violates our boundaries? How to deal with failure, rejection, uncertainty or pressure?",
-          "Many of these abilities are either missing from our conventional learning experiences, inadequately covered or relegated to the periphery of the educational process.",
-          "The problem isn't that academic subjects or theoretical knowledge are unimportant. They are absolutely essential. The problem arises when we invest disproportionate time and attention in certain forms of learning while overlooking, or failing to systematically develop, abilities that may prove equally or even more important in navigating the practical realities of life.",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Knowledge Is Tested, Its Application Is Not",
-    paragraphs: [
-      "Imagine two students who have both learnt the same concept and scored equally well in an examination. Now place them in a real-life situation where they must use that knowledge to solve a problem. Will both necessarily perform equally well?",
-      "Not necessarily!",
-      "Knowing an answer and knowing how to use that knowledge in a real-life situation are two entirely different abilities.",
-      "Yet, students are predominantly evaluated on what they know, how well they remember it and how accurately they reproduce it in examinations, rather than how effectively they can apply their knowledge to solve actual problems.",
-      "An examination may test whether a student knows a formula. But does it necessarily test whether the student knows when to use it, how to use it, or whether the formula is even relevant to the situation at hand?",
-      "The ability to recall knowledge is important. But the ability to recognise when knowledge is needed, identify what is relevant, apply it appropriately and arrive at an effective response is what makes knowledge practically useful.",
-      "And that distinction is often overlooked.",
-    ],
-  },
-  {
-    title: "Real-Life Case Studies and Experiential Learning Remain Undervalued",
-    paragraphs: [
-      "There is a world of difference between learning about a situation and actually engaging with it.",
-      "Reading about a conflict is not the same as navigating one. Learning the theory of decision-making is not the same as making a difficult decision. Listening to a lecture about communication is not the same as handling an uncomfortable conversation. Learning about financial concepts is not the same as evaluating an actual financial decision.",
-      "Case studies, field-based learning, simulations, real-world challenges, practical assignments, role plays and experiential learning can provide students with opportunities to think, analyse, experiment, make decisions, explore alternatives and learn through doing.",
-      "Yet, such approaches are often not given the importance, frequency or systematic integration they deserve.",
-      "Students are rarely required to engage consistently with actual or realistic situations that demand practical thinking, analysis, decision-making, judgement and problem-solving.",
-      "We often tell students what they should know. We need to give them far more opportunities to discover what they can do with what they know!",
-    ],
-  },
-  {
-    title: "Individual Circumstances, Struggles and Achievements Are Rarely Accounted For",
-    paragraphs: [
-      "Imagine two students who secure identical marks in an examination.",
-      "One had access to excellent teachers, resources, supportive parents, a conducive learning environment and every possible advantage. The other struggled with difficult circumstances, limited resources, personal challenges and obstacles that made the learning journey considerably harder.",
-      "Should their journeys be viewed as identical merely because their marks are identical?",
-      "Academic scores alone cannot reflect the complete journey of a student. The circumstances in which a student learns, the adversities they overcome, the resources available to them, the initiative they demonstrate and the results they achieve despite obstacles deserve meaningful recognition.",
-      "Yet, conventional evaluation systems largely focus on standardised performance, scores, grades and predefined academic benchmarks, often failing to adequately account for these factors.",
-      "Education and evaluation should not merely measure what an individual has achieved. They should also encourage initiative, resilience, independent thinking, growth, effort, practical abilities and the capacity to overcome challenges.",
-      "Because sometimes, the journey behind the marks tells a story that the marks themselves never reveal!",
-    ],
-  },
-  {
-    title: "The Real World Demands More Than Academic and Technical Knowledge",
-    paragraphs: [
-      "The real world is not a textbook. It does not operate chapter by chapter, subject by subject or according to a predefined syllabus.",
-      "A single situation may require you to think critically, understand people, manage emotions, communicate effectively, exercise judgement, make decisions, recognise risks, apply knowledge, negotiate, adapt and take responsibility, sometimes all at the same time.",
-      "Consider an individual dealing with a workplace conflict, a financial commitment, an unexpected crisis, a difficult relationship, a deceptive situation or a decision involving ethical dilemmas.",
-      "There may be no formula to memorise, no teacher to ask, no multiple-choice options and no one to tell you which chapter contains the answer!",
-      "Real life demands the ability to navigate complex situations, manage relationships, deal with conflicts, make difficult decisions, exercise sound judgement, confront ethical dilemmas, adapt to changing circumstances and respond effectively to unpredictable challenges.",
-      "Yet, the development of these practical abilities, which are essential to successfully navigate the complexities of real life, remains inadequately emphasised in conventional learning and education.",
-      "The world does not merely expect you to know things. It expects you to know what to do!",
-    ],
-  },
-  {
-    title: "Schools and Educators Operate Within Systemic Constraints",
-    paragraphs: [
-      "It would be unfair to assume that schools and educators do not recognise the importance of practical learning, or that they are unwilling to introduce innovative approaches.",
-      "Many teachers and educational institutions genuinely want to provide students with a more meaningful, engaging and holistic learning experience. However, they often operate within a framework of prescribed syllabi, examination systems, academic schedules, institutional requirements, expectations of parents, administrative responsibilities and other constraints.",
-      "When substantial portions of the academic calendar must be devoted to completing prescribed syllabi, preparing students for examinations and meeting institutional requirements, introducing experiential, situational and application-oriented learning on a consistent and structured basis can become difficult.",
-      "The challenge is not necessarily a lack of intention or awareness. It is also a question of priorities, time, resources, institutional structures and the practical limitations within which schools and educators operate.",
-      "Consequently, even when the need for practical and experiential learning is recognised, its systematic and sustained integration into the educational experience may remain limited.",
-    ],
-  },
-  {
-    title: "Learning Priorities Have Not Kept Pace with a Changing World",
-    paragraphs: [
-      "The world our children are growing up in is dramatically different from the world in which many of our existing educational practices evolved.",
-      "Technology, artificial intelligence, digital platforms, changing workplaces, new professions, evolving social realities and unprecedented access to information have fundamentally transformed the way people learn, communicate, work, make decisions and solve problems.",
-      "A person can access more information in a few seconds today than previous generations could access in hours, days or even weeks. But does access to information automatically make someone better equipped to understand it, evaluate it, distinguish fact from misinformation, recognise manipulation or use it wisely?",
-      "In a world where artificial intelligence can generate answers, write content, analyse information and perform increasingly sophisticated tasks, the ability to think independently, exercise judgement, evaluate information, make decisions and apply knowledge becomes even more important.",
-      "Yet, learning priorities and educational practices continue to devote disproportionate attention to conventional methods, without adequately adapting to the competencies and practical abilities increasingly demanded by the world today.",
-      "The world is changing rapidly. Our approach to preparing individuals for that world must change as well.",
-    ],
-  },
-  {
-    title: "No Structured Approach Exists to Systematically Prepare Individuals for Real-Life Situations",
-    paragraphs: [
-      "Most individuals learn how to handle life's challenges through a combination of personal experiences, mistakes, family guidance, observations, circumstances, advice from others and trial and error.",
-      "Some learn valuable lessons early in life. Others learn them after making mistakes, facing difficult situations or experiencing consequences that could perhaps have been avoided.",
-      "Experience is certainly a powerful teacher. But it can also be an expensive one!",
-      "A wrong financial decision, an unhealthy relationship, an avoidable conflict, a career mistake, a deceptive situation or a poor judgement call may sometimes teach us a lesson. But the price of learning that lesson can be considerable.",
-      "Yet, there remains a fundamental gap in the form of a structured, systematic and comprehensive approach that deliberately prepares individuals to understand, navigate and effectively handle the diverse situations they are likely to encounter in life.",
-      "We teach individuals many things they need to know. But where is the systematic preparation for the situations they will actually have to face?",
-      "This is the gap that needs to be addressed.",
-    ],
-  },
-];
+
 
 
 
@@ -238,6 +168,7 @@ const breadcrumbSchema = {
 export default function Page() {
   return (
     <main className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-8 pt-2 sm:px-6 sm:pb-12 sm:pt-3">
+      <ProblemCardScrollRestorer />
       {siteUrl && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }} />}
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
       <Navbar />
@@ -268,15 +199,14 @@ export default function Page() {
             <div className="mx-auto mt-14 grid max-w-7xl grid-cols-1 gap-4 text-left sm:mt-20 sm:grid-cols-2 sm:gap-5 2xl:grid-cols-3 2xl:gap-6">
               {problemPoints.map((point, index) => (
                 <ScrollReveal className="h-full" delay={(index % 3) * 70} key={point.title}>
-                <article id={`problem-${problemPointSlugs[index]}`} className={`group scroll-mt-8 flex h-full min-h-56 min-w-0 flex-col overflow-hidden rounded-3xl border border-t-4 bg-gradient-to-br p-6 shadow-[0_12px_30px_rgba(16,43,80,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(16,43,80,0.16)] sm:p-7 ${problemCardThemes[index]}`}>
-                  <h2 className="text-balance text-lg font-extrabold leading-snug tracking-[-0.02em] sm:text-xl">
-                    <Link aria-label={`Open ${point.title}`} className="group/title inline-flex max-w-full items-start gap-3 rounded-md text-left text-[#102b50] transition-colors duration-200 hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
-                      <span>{point.title}</span>
-                      <span aria-hidden="true" className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/75 text-sm font-bold text-[#147b4b] shadow-[0_3px_10px_rgba(16,43,80,0.1)] transition duration-200 group-hover/title:translate-x-1 group-hover/title:bg-[#147b4b] group-hover/title:text-white">&rarr;</span>
+                <article id={`problem-${problemPointSlugs[index]}`} className={`group scroll-mt-28 flex h-full min-h-56 min-w-0 flex-col overflow-hidden rounded-3xl border border-t-4 bg-gradient-to-br p-6 shadow-[0_12px_30px_rgba(16,43,80,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(16,43,80,0.16)] sm:p-7 ${problemCardThemes[index]}`}>
+                  <h2 className="text-center text-balance text-lg font-extrabold leading-snug tracking-[-0.02em] sm:text-xl">
+                    <Link aria-label={`Open ${point.title}`} className="mx-auto block w-full rounded-md text-center text-[#102b50] transition-colors duration-200 hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
+                      {point.title}
                     </Link>
                   </h2>
-                  <span aria-hidden="true" className="mt-5 h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447] transition-all duration-300 group-hover:w-16" />
-                  <Link aria-label={`Learn more about ${point.title}`} className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl border border-[#0f6d3f]/20 bg-gradient-to-r from-[#117541] to-[#159447] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(21,148,71,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#102b50] hover:to-[#183b61] hover:shadow-[0_12px_24px_rgba(16,43,80,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
+                    <span aria-hidden="true" className="mx-auto mt-5 h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447] transition-all duration-300 group-hover:w-16" />
+                    <Link aria-label={`Learn more about ${point.title}`} className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl border border-[#0f6d3f]/20 bg-gradient-to-r from-[#117541] to-[#159447] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(21,148,71,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#102b50] hover:to-[#183b61] hover:shadow-[0_12px_24px_rgba(16,43,80,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
                     Learn more <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </article>
@@ -284,7 +214,7 @@ export default function Page() {
               ))}
             </div>
             <section className="relative isolate mx-auto mt-20 w-full max-w-7xl py-12 text-left sm:mt-28 sm:py-16 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#eaf3ef]">
-              <h2 className="mx-auto block w-fit bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-center text-balance text-2xl font-extrabold tracking-tight text-transparent sm:text-4xl">
+              <h2 className="mx-auto block w-fit bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text pb-[0.12em] text-center text-balance text-2xl font-extrabold leading-[1.3] tracking-tight text-transparent sm:text-4xl">
                  Why Does This Problem Exist?
               </h2>
               <div className="mt-8 space-y-5 text-pretty text-[17px] leading-7 text-slate-700 sm:mt-10 sm:space-y-6 sm:text-[19px] sm:leading-8">
@@ -292,48 +222,25 @@ export default function Page() {
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
-              <div className="mt-8 sm:mt-12">
-                {whyProblemPoints.map((point, index) => (
-                  <ScrollReveal className="border-t border-[#d4e0e8] first:border-t-0" key={point.title} delay={(index % 4) * 55}>
-                  <article className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 py-7 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 sm:py-9">
-                    <p className="pt-1 text-sm font-extrabold tracking-[0.08em] text-[#159447] sm:text-base">
-                      {index + 1}.
-                    </p>
-                    <div>
-                      <h3 className="text-balance text-xl font-bold leading-snug text-[#102b50] sm:text-2xl">
-                        {point.title}
-                      </h3>
-                      {Array.isArray(point.paragraphs) && (
-                        <div className="mt-3 space-y-4 text-pretty text-base leading-7 text-slate-600 sm:space-y-5 sm:text-lg sm:leading-8">
-                          {point.paragraphs.map((paragraph, paragraphIndex) => (
-                            <p className={paragraphIndex === (point.paragraphs?.length ?? 0) - 1 ? "font-semibold text-[#183b61]" : ""} key={paragraph}>
-                              {paragraph}
-                            </p>
-                          ))}
-                        </div>
-                      )}
-                      {Array.isArray(point.subsections) && (
-                        <div className="mt-5 space-y-6 sm:mt-7 sm:space-y-8">
-                          {point.subsections.map((subsection, subsectionIndex) => (
-                            <section key={subsection.title}>
-                              <h4 className="text-balance text-lg font-semibold leading-snug text-[#147b4b] sm:text-xl">
-                                {String.fromCharCode(97 + subsectionIndex)}. {subsection.title}
-                              </h4>
-                              <div className="mt-2 space-y-3 text-pretty text-base leading-7 text-slate-600 sm:mt-3 sm:space-y-4 sm:text-lg sm:leading-8">
-                                {subsection.paragraphs.map((paragraph, paragraphIndex) => (
-                                  <p className={paragraphIndex === subsection.paragraphs.length - 1 ? "font-semibold text-[#183b61]" : ""} key={paragraph}>
-                                    {paragraph}
-                                  </p>
-                                ))}
-                              </div>
-                            </section>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </article>
-                  </ScrollReveal>
-                ))}
+              <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+                {whyProblemSlugs.map((slug, index) => {
+                  return (
+                    <ScrollReveal className="h-full" key={slug} delay={(index % 4) * 55}>
+                      <article id={`why-problem-${slug}`} className={`group scroll-mt-28 relative flex h-full min-h-64 flex-col overflow-hidden rounded-[1.75rem] border bg-gradient-to-br p-6 shadow-[0_12px_28px_rgba(16,43,80,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(16,43,80,0.14)] sm:p-7 ${whyCardThemes[index]}`}>
+                        <span aria-hidden="true" className="pointer-events-none absolute -right-2 -top-7 select-none text-[7rem] font-black leading-none text-current opacity-[0.07] transition-transform duration-300 group-hover:scale-110">{String(index + 1).padStart(2, "0")}</span>
+                        <p className="relative text-center text-xs font-extrabold uppercase tracking-[0.2em] opacity-75">Reason {String(index + 1).padStart(2, "0")}</p>
+                        <h3 className="relative my-auto py-7 text-center text-balance text-xl font-extrabold leading-snug tracking-[-0.025em] text-[#102b50] sm:text-[1.35rem]">
+                          <Link aria-label={`Read: ${whyProblemTitles[index]}`} className="block rounded-xl px-2 py-3 transition-colors hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
+                            {whyProblemTitles[index]}
+                          </Link>
+                        </h3>
+                        <Link aria-label={`Explore reason: ${whyProblemTitles[index]}`} className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full border border-[#102b50]/15 bg-white/75 px-5 py-2.5 text-sm font-bold text-[#102b50] shadow-sm transition-all duration-200 hover:bg-[#102b50] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
+                          Explore this reason
+                        </Link>
+                      </article>
+                    </ScrollReveal>
+                  );
+                })}
               </div>
             </section>
           </>

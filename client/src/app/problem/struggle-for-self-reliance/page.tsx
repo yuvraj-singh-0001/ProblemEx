@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+﻿import type { Metadata } from "next";
 import Navbar from "@/app/components/navbar/navbar";
+import { ProblemCardReturnLink } from "@/app/components/problem-card-navigation/problem-card-navigation";
 
 const title = "The Struggle for Self-Reliance";
 const paragraphs = [
@@ -35,10 +35,9 @@ export default function Page() {
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
       <Navbar />
       <article className="relative mx-auto w-full max-w-7xl py-8 sm:py-14">
-        <Link className="inline-flex items-center gap-2 rounded-full border border-[#d4e0e8] bg-white/80 px-4 py-2 text-sm font-semibold text-[#147b4b] transition hover:border-[#159447] hover:bg-white" href="/problem#problem-struggle-for-self-reliance">← Back to this problem card</Link>
+        <ProblemCardReturnLink href="/problem" targetId="problem-struggle-for-self-reliance" className="inline-flex items-center gap-2 rounded-full border border-[#d4e0e8] bg-white/80 px-4 py-2 text-sm font-semibold text-[#147b4b] transition hover:border-[#159447] hover:bg-white">← Back to this problem card</ProblemCardReturnLink>
         <header className="mx-auto mt-8 max-w-7xl border-b border-[#d4e0e8] pb-8 text-center sm:mt-10 sm:pb-10">
-          <p className="inline-flex rounded-full border border-[#159447]/15 bg-[#eaf5ee] px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#147b4b]">What Is the Problem?</p>
-          <h1 className="mx-auto mt-5 max-w-7xl bg-gradient-to-r from-[#102b50] via-[#183b61] to-[#147b4b] bg-clip-text text-balance text-3xl font-extrabold leading-tight tracking-[-0.035em] text-transparent sm:text-5xl">{title}</h1>
+          <h1 className="mx-auto mt-0 max-w-7xl bg-gradient-to-r from-[#102b50] via-[#183b61] to-[#147b4b] bg-clip-text text-balance text-3xl font-extrabold leading-tight tracking-[-0.035em] text-transparent sm:text-5xl">{title}</h1>
           <span aria-hidden="true" className="mx-auto mt-6 block h-1.5 w-16 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447] shadow-[0_4px_12px_rgba(21,148,71,0.2)]" />
         </header>
         <div className="mx-auto mt-8 max-w-7xl space-y-5 text-pretty text-[17px] leading-8 text-slate-700 sm:mt-10 sm:space-y-6 sm:text-lg sm:leading-9">

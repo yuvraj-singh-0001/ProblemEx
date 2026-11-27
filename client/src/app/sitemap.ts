@@ -12,6 +12,23 @@ const paths = [
   "/problem/theoretical-education-limited-practical-application",
   "/problem/degrees-yet-struggling-to-earn-a-livelihood",
   "/problem/insufficient-vocational-technical-practical-skills",
+  "/problem/flawed-objectives-and-priorities-of-education",
+  "/problem/knowledge-is-tested-its-application-is-not",
+  "/problem/real-life-case-studies-and-experiential-learning",
+  "/problem/individual-circumstances-struggles-and-achievements",
+  "/problem/real-world-demands-more-than-academic-and-technical-knowledge",
+  "/problem/schools-and-educators-operate-within-systemic-constraints",
+  "/problem/learning-priorities-and-a-changing-world",
+  "/problem/no-structured-approach-to-real-life-preparation",
+  "/consequences-of-the-problem/a-generation-struggling-to-stand-on-its-own-feet",
+  "/consequences-of-the-problem/poor-decisions-with-lasting-consequences",
+  "/consequences-of-the-problem/everyday-challenges-turning-into-overwhelming-crises",
+  "/consequences-of-the-problem/strained-relationships-and-the-breakdown-of-human-connections",
+  "/consequences-of-the-problem/vulnerability-to-manipulation-exploitation-and-deception",
+  "/consequences-of-the-problem/reduced-employability-career-growth-and-economic-independence",
+  "/consequences-of-the-problem/missed-opportunities-wasted-potential-and-unfulfilled-aspirations",
+  "/consequences-of-the-problem/compromised-ethical-judgement-and-responsible-behaviour",
+  "/consequences-of-the-problem/a-society-less-equipped-to-handle-its-collective-challenges",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

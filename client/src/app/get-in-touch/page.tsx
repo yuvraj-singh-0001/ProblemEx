@@ -69,10 +69,7 @@ export default function Page() {
           </p>
         )
         }
-        <nav aria-label="Explore more ProblemEx sections" className="mx-auto mt-16 max-w-6xl border-t border-[#d4e0e8] pt-7 sm:mt-20 sm:pt-9"><p className="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-[#147b4b]">Continue exploring</p><div className="grid gap-3 sm:grid-cols-2">
-          {problemIndex > 0 && <Link className="rounded-2xl border border-[#d4e0e8] bg-white/80 p-4 transition hover:border-[#159447] hover:shadow-md" href={pathFor(sections[problemIndex - 1].slug)}><span className="block text-xs font-bold uppercase tracking-wider text-slate-500">Previous section</span><span className="mt-1 block font-semibold text-[#102b50]">← {sections[problemIndex - 1].title}</span></Link>}
-          {problemIndex < sections.length - 1 && <Link className="rounded-2xl border border-[#d4e0e8] bg-white/80 p-4 transition hover:border-[#159447] hover:shadow-md sm:text-right" href={pathFor(sections[problemIndex + 1].slug)}><span className="block text-xs font-bold uppercase tracking-wider text-slate-500">Next section</span><span className="mt-1 block font-semibold text-[#102b50]">{sections[problemIndex + 1].title} →</span></Link>}
-        </div></nav>
+        
       </section>
     </main>
   );
