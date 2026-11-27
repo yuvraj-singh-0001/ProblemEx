@@ -1,16 +1,19 @@
 import ScrollReveal from "@/app/components/scroll-reveal";
 
 export const twelvePillarDescription =
-  "Explore the ProblemEx Student Framework: the final nomenclature of 12 SKQ pillars and 30 sub-pillars, with a Pillar 11 replacement for teachers or professionals.";
+  "Explore the ProblemEx 12-Pillar Framework: how its student pillars organise real-life situations, and the framework's scope, limitations and sub-pillars.";
 
 export const twelvePillarKeywords = [
   "ProblemEx 12-Pillar Framework",
   "12 pillars of ProblemEx",
+  "Understanding the 12-Pillar Framework",
+  "scope and limitations of the 12-Pillar Framework",
   "real-life situations framework",
   "ProblemEx pillars",
   "situational knowledge framework",
   "real-life challenges and dilemmas",
   "ProblemEx student framework",
+  "Student Framework SKQ pillars",
   "30 SKQ sub-pillars",
   "ProblemEx framework for teachers and professionals",
   "31 professional framework sub-pillars",
@@ -189,7 +192,7 @@ const frameworkLimitations = [
     title: "1. The Framework Is Not Exhaustive",
     paragraphs: [
       "The 12 pillars are not intended to represent an exhaustive list of every situation, problem, challenge or dilemma that an individual may encounter in real life. The real world is far too diverse and dynamic for any framework to capture every conceivable situation.",
-      "ProblemEx is a foundational programme, and these 12 pillars represent a carefully organised framework within the scope and objectives of the programme.",
+      "ProblemEx is a foundational programme and these 12 pillars represent a carefully organised framework within the scope and objectives of the programme.",
     ],
   },
   {
@@ -269,7 +272,7 @@ export default function TwelvePillarFrameworkContent() {
               Real-life situations, problems, challenges and dilemmas come in all shapes and forms. Each situation may demand a different combination of knowledge, skills, abilities, judgement and responses. The requirements of one situation may be entirely different from those of another.
             </p>
             <p className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
-              For the ease of understanding, systematic learning and programme development, <strong className="font-extrabold text-[#147b4b]">we have organised these diverse real-life situations into 12 broad groupings</strong>, which form the foundation of the ProblemEx framework. We term them as Pillars.
+              For the ease of understanding, systematic learning and programme development, <strong className="font-extrabold text-[#147b4b]">The True Topper (TTT) has organised these diverse real-life situations into 12 broad groupings</strong>, which form the foundation of the ProblemEx framework. We term them as Pillars.
             </p>
             <p className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
               These 12 pillars represent broad areas of life within which individuals encounter different kinds of situations, challenges, problems and dilemmas, and develop the abilities required to navigate them effectively.
@@ -306,9 +309,10 @@ export default function TwelvePillarFrameworkContent() {
       <ScrollReveal>
         <section>
           <h2 className={sectionHeading}>The ProblemEx Pillars and Sub-Pillars</h2>
-          <div className="mt-6 border-l-4 border-[#159447] pl-4 sm:pl-6">
-            <h3 className="text-xl font-extrabold text-[#102b50] sm:text-2xl">1. Student Framework</h3>
-            <p className="mt-2 text-base font-semibold text-[#147b4b] sm:text-lg">
+          <div className="mx-auto mt-8 flex w-full max-w-2xl flex-col items-center rounded-2xl border border-[#d5e6df] bg-gradient-to-br from-white via-[#f5faf7] to-[#eaf4ef] px-5 py-6 text-center shadow-[0_12px_28px_rgba(16,43,80,0.08)] sm:mt-10 sm:rounded-3xl sm:px-8 sm:py-8">
+            <span aria-hidden="true" className="mb-4 h-1.5 w-14 rounded-full bg-gradient-to-r from-[#159497] to-[#159447]" />
+            <h3 className="text-2xl font-extrabold tracking-tight text-[#102b50] sm:text-3xl">1. Student Framework</h3>
+            <p className="mt-3 text-base font-semibold text-[#147b4b] sm:text-lg">
               Nomenclature of 12 SKQ Pillars and 30 Sub-Pillars
             </p>
           </div>

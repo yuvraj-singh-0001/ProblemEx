@@ -15,8 +15,8 @@ const situationalCapabilities = [
 ];
 
 const skAssessmentSteps = [
-  ["The Initial Assessment", "Before beginning the ProblemEx programme, participants undertake an assessment designed to evaluate their Situational Knowledge. Based on their performance, an initial SKI value is calculated, providing a starting point for their journey."],
-  ["The ProblemEx Journey", "Participants undertake the ProblemEx programme, engaging with practical situations, challenges, learning experiences and activities designed to progressively develop their Situational Knowledge and SKQ."],
+  ["The Initial Assessment", "Before beginning the ProblemEx programme, participants undertake an assessment designed to evaluate their Situational Knowledge Quotient (SKQ). Based on their performance, an initial SKI value is calculated, providing a starting point for their journey."],
+  ["The ProblemEx Journey", "Participants undertake the ProblemEx programme, engaging with practical situations, challenges, learning experiences and activities designed to progressively develop their Situational Knowledge Quotient (SKQ)."],
   ["The Final Assessment", "Upon completion of the programme, participants undertake another assessment. Their performance is evaluated to calculate their final SKI value."],
   ["Measure Your Progress", "The initial and final SKI values provide an indicator of the development achieved during the ProblemEx journey, allowing participants to understand and evaluate their progress in Situational Knowledge."],
 ];
@@ -35,15 +35,15 @@ const sectionHeading = "text-balance text-2xl font-extrabold tracking-tight text
 
 export default function CorePhilosophyContent() {
   return (
-    <div className="mx-auto mt-5 w-full max-w-6xl space-y-14 text-left sm:mt-8 sm:space-y-20">
+    <div className="mx-auto mt-5 w-full max-w-7xl space-y-14 text-left sm:mt-8 sm:space-y-20">
       <ScrollReveal>
         <section className="relative isolate py-8 sm:py-12 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-gradient-to-r before:from-[#eaf3ef] before:via-[#f3f7fa] before:to-[#eef5f7]">
           <div aria-hidden="true" className="pointer-events-none absolute -right-8 top-0 -z-10 h-52 w-52 rounded-full bg-emerald-300/15 blur-3xl sm:h-72 sm:w-72" />
-          <div className="max-w-5xl">
+          <div className="max-w-7xl">
             <h2 className="max-w-4xl bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-2xl font-extrabold tracking-tight text-transparent sm:text-3xl">
               The Solution Lies in Situational Knowledge
             </h2>
-            <div className="mt-6 max-w-5xl space-y-5 sm:mt-8">
+            <div className="mt-6 max-w-7xl space-y-5 sm:mt-8">
               {paragraphs([
                 "We have already seen how academic knowledge, degrees, qualifications and even specialised technical skills, despite their importance, may not always be sufficient to help us navigate the complex realities of life. The real world doesn't always present us with a question paper, four options to choose from, or a teacher who tells us which chapter to revise. Sometimes, life simply throws a situation at us and expects us to figure it out!",
                 "And when we are unable to do so, the consequences can be far more serious than a poor score in an examination.",
@@ -51,7 +51,7 @@ export default function CorePhilosophyContent() {
               ])}
             </div>
             <p className="mt-7 border-l-4 border-[#159447] pl-5 text-xl font-extrabold leading-snug text-[#147b4b] sm:text-2xl">
-              The answer lies in what we call Situational Knowledge.
+              The answer lies in what The True Topper (TTT) terms as {"\u201cSituational Knowledge\u201d"}.
             </p>
             <div className="mt-6 space-y-5">
               {paragraphs([
@@ -69,13 +69,13 @@ export default function CorePhilosophyContent() {
             <h2 className={sectionHeading}>What Is Situational Knowledge?</h2>
             <div className="mt-6 space-y-5">
               {paragraphs([
-                "Situational Knowledge is not one isolated skill, nor is it a single subject that you can study, memorise and master. It is the coming together of multiple streams of knowledge, abilities, skills, experiences and human faculties, which collectively enable you to understand a situation, make sense of what is happening, figure out what needs to be done and act effectively.",
+                "Situational Knowledge is not one isolated skill, nor is it a single subject that you can study, memorise and master while sitting in classrooms. It is the coming together of multiple streams of knowledge, abilities, skills, experiences and human faculties, which collectively enable you to understand a situation, make sense of what is happening, figure out what needs to be done and act effectively.",
                 "It is the combined strength of everything you know, everything you have learnt, everything you can do, and everything you are capable of thinking, judging and applying when faced with a real-life situation.",
               ])}
             </div>
           </div>
 
-          <p className="mt-8 text-base font-bold text-[#183b61] sm:text-lg">This includes, among other things:</p>
+          <h3 className="mt-8 text-lg font-extrabold text-[#147b4b] sm:text-xl">This includes, among other things:</h3>
           <div className="mt-5 grid gap-x-10 md:grid-cols-2">
             {situationalCapabilities.map(([title, description], index) => (
               <ScrollReveal className="border-t border-[#d7e4e8]" delay={(index % 2) * 65} key={title}>
@@ -95,6 +95,9 @@ export default function CorePhilosophyContent() {
           <p className="mt-4 text-pretty text-lg font-bold leading-8 text-[#183b61] sm:text-xl">
             But the real magic isn&apos;t merely in possessing all these individual components.
           </p>
+          <p className="mt-4 text-pretty text-lg font-bold leading-8 text-[#183b61] sm:text-xl">
+            The real magic happens when all these individual components start operating in a synchronized manner.
+          </p>
         </section>
       </ScrollReveal>
 
@@ -102,18 +105,18 @@ export default function CorePhilosophyContent() {
         <section className="relative isolate border-y border-[#dce8e8] py-8 sm:py-12 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-gradient-to-r before:from-[#edf3fa] before:via-[#f3f7fa] before:to-[#eaf4ef]">
           <span aria-hidden="true" className="pointer-events-none absolute -right-8 top-0 -z-10 h-52 w-52 rounded-full bg-emerald-300/15 blur-3xl sm:h-72 sm:w-72" />
           <h2 className={sectionHeading}>The Whole Is Greater Than the Sum of Its Parts</h2>
-          <div className="mt-6 max-w-5xl space-y-5">
+          <div className="mt-6 max-w-7xl space-y-5">
             {paragraphs([
               "Situational Knowledge is not a mathematical addition of individual skills and abilities. It is their harmonious, constructive and purposeful integration.",
               "Imagine that each of these components contributes a value of 1 to your ability to navigate a particular situation. If five such components are involved, their contribution isn't necessarily limited to a simple sum of 5.",
               "When these abilities complement, reinforce and work in harmony with one another, their combined effectiveness can be significantly greater than what each could achieve independently.",
             ])}
           </div>
-          <p className="mt-8 max-w-5xl border-y border-[#c8ddd6] py-5 text-2xl font-extrabold leading-tight tracking-tight text-[#147b4b] sm:mt-10 sm:py-6 sm:text-3xl">
+          <p className="mt-8 max-w-7xl border-y border-[#c8ddd6] py-5 text-2xl font-extrabold leading-tight tracking-tight text-[#147b4b] sm:mt-10 sm:py-6 sm:text-3xl">
             The whole is greater than the sum of its parts.
           </p>
           <p className="mt-5 text-lg font-bold text-[#147b4b] sm:text-xl">This is the essence of Situational Knowledge.</p>
-          <div className="mt-6 max-w-5xl space-y-5">
+          <div className="mt-6 max-w-7xl space-y-5">
             {paragraphs([
               "It is not merely about having knowledge, possessing skills or accumulating experiences. It is about bringing the right combination of these abilities together, at the right time, in the right context, and putting them to effective use when a real-life situation demands it.",
               "You may possess excellent academic knowledge, exceptional technical skills, considerable experience and sound common sense. But if you cannot recognise what a situation demands, connect the relevant pieces, exercise judgement and apply them effectively, their individual value may not translate into the outcome you need.",
@@ -124,14 +127,14 @@ export default function CorePhilosophyContent() {
       </ScrollReveal>
 
       <ScrollReveal>
-        <section className="max-w-5xl">
-          <h2 className={sectionHeading}>But How Do We Know How Much Situational Knowledge a Person Possesses?</h2>
+        <section className="max-w-7xl">
+          <h2 className={sectionHeading}>How Do We Know How Much Situational Knowledge a Person Possesses?</h2>
           <div className="mt-6 space-y-5">
             {paragraphs([
               "Understanding the concept is one thing. Knowing how developed it is within an individual is another.",
               "How do we assess whether a person is better equipped to navigate real-life situations? How do we identify areas of strength and weakness? And, most importantly, how do we track whether this ability is actually improving?",
               "We have concepts and parameters that help us understand and assess different aspects of human capability. Intelligence Quotient (IQ), for instance, is widely associated with the assessment of intellectual abilities. Emotional Quotient (EQ) is associated with emotional capabilities, while Spiritual Quotient (SQ) is often used in discussions around spirituality and deeper personal growth.",
-              "On similar lines, we have conceptualised a framework to understand, assess and develop Situational Knowledge, which we call the Situational Knowledge Quotient (SKQ).",
+              "On similar lines, The True Topper (TTT) has conceptualised a framework to understand, assess and develop Situational Knowledge, which we term as the \u201cSituational Knowledge Quotient\u201d (SKQ).",
             ])}
           </div>
         </section>
@@ -144,7 +147,7 @@ export default function CorePhilosophyContent() {
           </div>
           <div className="space-y-5">
             {paragraphs([
-              "SKQ is the framework we have conceptualised to understand the extent to which an individual is equipped with Situational Knowledge and the ability to understand, evaluate, navigate and effectively respond to real-life situations.",
+              "SKQ is the framework that The True Topper (TTT) has conceptualised to understand the extent to which an individual is equipped with Situational Knowledge and the ability to understand, evaluate, navigate and effectively respond to real-life situations.",
               "It gives us a way to think about, assess and systematically work towards developing an individual's capability to handle practical challenges encountered in real life.",
             ])}
             <p className="text-lg font-bold leading-8 text-[#147b4b] sm:text-xl">SKQ is central to the philosophy of ProblemEx.</p>
@@ -158,11 +161,11 @@ export default function CorePhilosophyContent() {
       <ScrollReveal>
         <section>
           <h2 className={sectionHeading}>From a Concept to a Measurable Journey: Situational Knowledge Index (SKI)</h2>
-          <div className="mt-6 max-w-5xl space-y-5">
+          <div className="mt-6 max-w-7xl space-y-5">
             {paragraphs([
               "We understand that a concept, however powerful, becomes far more meaningful when individuals can assess where they stand, understand their progress and see tangible evidence of their development.",
               "Because, let's be honest, simply being told that you are becoming better equipped to handle life is encouraging. But being able to assess that progress makes the journey considerably more meaningful!",
-              "That is why we have also conceptualised the Situational Knowledge Index (SKI), our framework for measuring an individual's SKQ.",
+              "That is why we The True Topper (TTT) has also conceptualised the Situational Knowledge Index (SKI), our framework for measuring an individual's SKQ.",
               "Drawing a parallel with indices such as the Human Development Index (HDI), which provides a composite measure that helps assess and compare human development, SKI is intended to provide a measurable indicator of an individual's Situational Knowledge Quotient.",
             ])}
           </div>
@@ -223,7 +226,7 @@ export default function CorePhilosophyContent() {
               </li>
             ))}
           </ol>
-          <div className="mt-6 max-w-5xl space-y-5">
+          <div className="mt-6 max-w-7xl space-y-5">
             {paragraphs([
               "The difference between the initial and final SKI values is intended to reflect the progress made in Situational Knowledge through the ProblemEx programme.",
               "This transforms Situational Knowledge from an abstract concept into a structured developmental journey, with an assessment at the beginning, a programme designed to strengthen the capability, and an assessment at the end to evaluate the progress.",
@@ -235,34 +238,32 @@ export default function CorePhilosophyContent() {
       <ScrollReveal>
         <section className="relative isolate border-y border-[#dce8e8] py-8 sm:py-12 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-gradient-to-r before:from-[#eaf3ef] before:via-[#f3f7fa] before:to-[#eef5f7]">
           <span aria-hidden="true" className="pointer-events-none absolute -right-8 top-0 -z-10 h-52 w-52 rounded-full bg-emerald-300/15 blur-3xl sm:h-72 sm:w-72" />
-          <h2 className={sectionHeading}>Our Commitment: A Better SKI, A Better Equipped You</h2>
-          <p className="mt-6 max-w-5xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
+          <p className="mt-6 max-w-7xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
             The ultimate objective of ProblemEx is not merely to teach you something. It is to make you better equipped to handle life.
           </p>
-          <div className="mt-6 max-w-5xl space-y-5">
+          <div className="mt-6 max-w-7xl space-y-5">
             {paragraphs([
-              "Our commitment through ProblemEx is to help you develop and strengthen your Situational Knowledge, so that when life presents you with a challenge, you are better prepared to understand it, think through it, evaluate your options, make informed decisions and respond effectively.",
-              "We want your ProblemEx journey to reflect a meaningful improvement in your Situational Knowledge Quotient, demonstrated through an improvement in your Situational Knowledge Index.",
+              "The True Topper (TTT) wants your ProblemEx journey to reflect a meaningful improvement in your Situational Knowledge Quotient, demonstrated through an improvement in your Situational Knowledge Index.",
             ])}
           </div>
-          <p className="mt-5 max-w-5xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
+          <p className="mt-5 max-w-7xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
             A higher SKI reflects an improvement in SKQ. An improved SKQ means you are progressively developing a stronger combination of knowledge, skills, judgement, awareness and practical abilities that can help you navigate real-life situations.
           </p>
 
           <p className="mt-9 text-xl font-extrabold leading-snug text-[#147b4b] sm:mt-12 sm:text-2xl">
             And what does that ultimately mean for you?
           </p>
-          <div className="mt-4 max-w-5xl space-y-5">
+          <div className="mt-4 max-w-7xl space-y-5">
             {paragraphs([
               "It means you are better equipped to face the practical challenges that real-life situations present. You are better positioned to analyse a situation, identify the challenges, assess possible solutions, make decisions, take appropriate action and work towards achieving a desired outcome.",
               "You may still encounter difficult situations. You may still make mistakes. Life will certainly not stop throwing problems at you just because you completed ProblemEx!",
             ])}
           </div>
-          <p className="mt-5 max-w-5xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
+          <p className="mt-5 max-w-7xl text-pretty text-[17px] font-bold leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
             But you need not face those problems with the same level of helplessness, uncertainty, confusion or inadequacy as before.
           </p>
 
-          <div className="mt-7 max-w-5xl border-y border-[#c8ddd6] py-5 sm:mt-9 sm:py-6">
+          <div className="mt-7 max-w-7xl border-y border-[#c8ddd6] py-5 sm:mt-9 sm:py-6">
             <p className="text-pretty text-base leading-8 text-slate-700 sm:text-lg sm:leading-9">
               You will have a better-developed toolkit of abilities. You will have a stronger foundation to{" "}
               <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">think,</span>{" "}
@@ -273,8 +274,8 @@ export default function CorePhilosophyContent() {
             </p>
           </div>
 
-          <p className="mt-7 max-w-5xl border-l-4 border-[#159447] pl-5 text-pretty text-lg font-extrabold leading-8 text-[#102b50] sm:mt-9 sm:text-xl sm:leading-9">
-            And that is our promise, our commitment and the very purpose of ProblemEx: to help you become better equipped to handle the problems, challenges, situations and dilemmas that life throws your way.
+          <p className="mt-7 max-w-7xl border-l-4 border-[#159447] pl-5 text-pretty text-lg font-extrabold leading-8 text-[#102b50] sm:mt-9 sm:text-xl sm:leading-9">
+            And that is the very purpose of ProblemEx: to help you become better equipped to handle the problems, challenges, situations and dilemmas that life throws your way.
           </p>
         </section>
       </ScrollReveal>
