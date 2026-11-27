@@ -4,8 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { problemSections } from "@/app/problem-sections";
-import { problemSectionSlugs } from "@/app/problem-section-slugs";
+const problemSections = [
+  "What Is the Problem?", "The Consequences of the Problem", "The Solution: ProblemEx",
+  "What ProblemEx Is Not", "The Core Philosophy of ProblemEx", "The 12-Pillar Framework",
+  "The ProblemEx Learning Approach and Methodologies", "The Outcomes and Benefits",
+  "How ProblemEx Is Different", "The Structure and Delivery of ProblemEx",
+  "The Advantages of ProblemEx for Schools", "Get in Touch",
+];
+const problemSectionSlugs = [
+  "problem", "consequences-of-the-problem", "solution", "what-problemex-is-not",
+  "core-philosophy-of-problemex", "12-pillar-framework",
+  "problemex-learning-approach-and-methodologies", "outcomes-and-benefits",
+  "how-problemex-is-different", "structure-and-delivery-of-problemex",
+  "advantages-of-problemex-for-schools", "get-in-touch",
+];
+const getProblemSectionPath = (slug: string) => slug === "problem" ? "/problem" : `/${slug}`;
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -59,7 +72,7 @@ export default function Navbar() {
                 <li key={label}>
                   <Link
                     className="flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-[#183b61] transition hover:bg-gradient-to-r hover:from-[#edf5fb] hover:to-[#edf8f0] hover:text-[#117541] focus-visible:outline-2 focus-visible:outline-[#159447]"
-                    href={`/problem/${problemSectionSlugs[index]}`}
+                    href={getProblemSectionPath(problemSectionSlugs[index])}
                     onClick={() => setMenuOpen(false)}
                   >
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#edf5ef] text-[10px] font-extrabold tracking-wide text-[#159447]">

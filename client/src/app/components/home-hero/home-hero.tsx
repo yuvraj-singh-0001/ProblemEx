@@ -4,8 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { problemSections } from "@/app/problem-sections";
-import { problemSectionSlugs } from "@/app/problem-section-slugs";
+const problemSections = [
+  "What Is the Problem?", "The Consequences of the Problem", "The Solution: ProblemEx",
+  "What ProblemEx Is Not", "The Core Philosophy of ProblemEx", "The 12-Pillar Framework",
+  "The ProblemEx Learning Approach and Methodologies", "The Outcomes and Benefits",
+  "How ProblemEx Is Different", "The Structure and Delivery of ProblemEx",
+  "The Advantages of ProblemEx for Schools", "Get in Touch",
+];
+const problemSectionSlugs = [
+  "problem", "consequences-of-the-problem", "solution", "what-problemex-is-not",
+  "core-philosophy-of-problemex", "12-pillar-framework",
+  "problemex-learning-approach-and-methodologies", "outcomes-and-benefits",
+  "how-problemex-is-different", "structure-and-delivery-of-problemex",
+  "advantages-of-problemex-for-schools", "get-in-touch",
+];
+const getProblemSectionPath = (slug: string) => slug === "problem" ? "/problem" : `/${slug}`;
 const introLines = [
   "ProblemEx turns real-life challenges into practical, usable solutions.",
   "Explore everyday problems and discover ideas that can help solve them.",
@@ -139,7 +152,7 @@ export default function HomeHero() {
       {phase !== "checking" && !showButtons && (
         <section
           aria-label="ProblemEx introduction"
-          className={`${phase === "zooming" ? "intro-zoom-out " : ""}relative z-10 flex min-h-[100svh] w-full max-w-4xl flex-col items-center justify-center text-center`}
+          className={`${phase === "zooming" ? "intro-zoom-out " : ""}fixed inset-0 z-10 flex min-h-[100svh] w-full flex-col items-center justify-center text-center`}
         >
           <h1
             className="intro-title absolute left-1/2 top-1/2 bg-gradient-to-r from-[#102b50] via-[#183b61] to-[#159447] bg-clip-text font-bold tracking-[-0.06em] text-transparent"
@@ -155,7 +168,7 @@ export default function HomeHero() {
           >
             ProblemEx
           </h1>
-          <div className="intro-lines absolute left-0 right-0 min-h-8 space-y-2 px-2 text-sm leading-6 sm:min-h-10 sm:text-lg sm:leading-8">
+          <div className="intro-lines absolute min-h-8 space-y-2 px-2 text-center text-sm leading-6 sm:min-h-10 sm:text-lg sm:leading-8">
             {typedLines.map((line, index) =>
               line ? (
                 <p
@@ -174,12 +187,12 @@ export default function HomeHero() {
         </section>
       )}
 
-      {showButtons && (
-        <nav
+      <nav
           aria-label="Problem pages"
-          className="relative z-10 mx-auto flex h-[100svh] min-h-[100svh] w-full max-w-[1920px] flex-col px-2 pt-2 pb-6 sm:px-4 sm:pt-3 sm:pb-8 xl:px-6 xl:pt-4 xl:pb-10"
+          className={`relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1920px] flex-col px-2 pt-2 pb-6 sm:px-4 sm:pt-3 sm:pb-8 xl:px-6 xl:pt-4 xl:pb-10 ${showButtons ? "" : "pointer-events-none absolute inset-0 opacity-0"}`}
         >
           <header className="mb-2 flex shrink-0 justify-center sm:mb-3">
+            <h1 className="sr-only">ProblemEx: Practical Skills for Real-Life Problems</h1>
             <div className="relative aspect-[7.55] w-[min(92vw,48rem)]">
               <Image
                 alt="ProblemEx"
@@ -197,7 +210,7 @@ export default function HomeHero() {
                 <Link
                   aria-label={label}
                   className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#c6d1dd] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] ${phase === "buttons" ? "animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards]" : ""} transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem]`}
-                  href={`/problem/${problemSectionSlugs[index]}`}
+                  href={getProblemSectionPath(problemSectionSlugs[index])}
                   onNavigate={() => {
                     window.sessionStorage.setItem(introCompleteKey, "true");
                     setPhase("buttons-static");
@@ -233,7 +246,6 @@ export default function HomeHero() {
             ))}
           </ul>
         </nav>
-      )}
     </main>
   );
 }

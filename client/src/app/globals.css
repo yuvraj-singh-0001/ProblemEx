@@ -65,6 +65,7 @@ body {
 }
 
 .intro-title {
+  top: calc(50% - clamp(2rem, 5vh, 3.5rem));
   width: max-content;
   max-width: calc(100vw - 2rem);
   font-size: clamp(2rem, min(8vw, 12vh), 7rem);
@@ -78,7 +79,11 @@ body {
 }
 
 .intro-lines {
-  top: calc(50% + clamp(6rem, 12vh, 10rem));
+  top: calc(50% + clamp(2.25rem, 5.5vh, 3.75rem));
+  left: 50%;
+  right: auto;
+  width: min(100%, 56rem);
+  transform: translateX(-50%);
 }
 
 @keyframes cinematic-sweep {
@@ -100,6 +105,54 @@ body {
   to {
     opacity: 0.28;
     transform: translate3d(22px, 18px, 0) scale(1.05);
+  }
+}
+
+@keyframes pillar-connector-flow {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pillar-subcard-border-glow {
+  0%,
+  100% {
+    border-color: color-mix(in srgb, #ed1c24 58%, white);
+  }
+
+  50% {
+    border-color: color-mix(in srgb, #ed1c24 82%, white);
+  }
+}
+
+@keyframes learning-method-connector-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pillar-mobile-connector {
+    animation: pillar-connector-flow 3.2s ease-in-out infinite;
+  }
+
+  .pillar-mobile-subcard {
+    animation: pillar-subcard-border-glow 4.8s ease-in-out infinite;
+  }
+
+  .learning-method-connector,
+  .learning-method-map::before {
+    animation: learning-method-connector-pulse 3.8s ease-in-out infinite;
   }
 }
 
