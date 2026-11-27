@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 
 const returnCardKey = "problemex-return-to-content-card";
+const introCompleteKey = "problemex-intro-complete";
+const returnToHomeCardsKey = "problemex-return-to-home-cards";
 
 type ProblemCardReturnLinkProps = {
   href: string;
@@ -14,6 +16,21 @@ type ProblemCardReturnLinkProps = {
 };
 
 type ReturnCardTarget = { pathname: string; targetId: string };
+
+export function HomeCardsReturnMarker() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/") return;
+
+    // Any section visit marks the intro as complete so returning home lands
+    // on the section cards instead of replaying the full-screen animation.
+    window.sessionStorage.setItem(introCompleteKey, "true");
+    window.sessionStorage.setItem(returnToHomeCardsKey, "true");
+  }, [pathname]);
+
+  return null;
+}
 
 export function ProblemCardReturnLink({
   href,
@@ -45,8 +62,6 @@ export function ProblemCardScrollRestorer() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname !== "/problem") return;
-
     const storedTarget = window.sessionStorage.getItem(returnCardKey);
     if (!storedTarget) return;
 
