@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
-import { ProblemCardScrollRestorer } from "@/app/components/problem-card-navigation/problem-card-navigation";
+import {
+  ProblemCardNavigationLink,
+  ProblemCardScrollRestorer,
+} from "@/app/components/problem-card-navigation/problem-card-navigation";
 import { differencesData } from "./differences-data";
 
 export const metadata: Metadata = {
@@ -37,21 +40,22 @@ const breadcrumbSchema = {
   ],
 };
 
-const cardGradients = [
-  "from-[#fff5f5] via-white to-[#fff0f1] border-[#fca5a5] border-t-[#ef4444]",
-  "from-[#fff8f3] via-white to-[#ffedd5] border-[#fdba74] border-t-[#f97316]",
-  "from-[#fffdf0] via-white to-[#fef9c3] border-[#fde047] border-t-[#eab308]",
-  "from-[#f2fcf5] via-white to-[#dcfce7] border-[#86efac] border-t-[#16a34a]",
-  "from-[#f0fdfa] via-white to-[#ccfbf1] border-[#5eead4] border-t-[#0d9488]",
-  "from-[#f4f8ff] via-white to-[#dbeafe] border-[#93c5fd] border-t-[#2563eb]",
-  "from-[#f5f5ff] via-white to-[#e0e7ff] border-[#a5b4fc] border-t-[#4f46e5]",
-  "from-[#faf5ff] via-white to-[#f3e8ff] border-[#d8b4fe] border-t-[#9333ea]",
+const differenceAccents = ["#177b83", "#63b7ad", "#3e8b52", "#d5ac35", "#177b83", "#63b7ad", "#3e8b52", "#d5ac35"];
+const differenceIconPaths = [
+  ["M20 20l-4.5-4.5", "M18 10.5a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"],
+  ["M9 18h6", "M10 22h4", "M8 14c-1.2-1-2-2.5-2-4a6 6 0 0 1 12 0c0 1.5-.8 3-2 4-.8.7-1 1.2-1 2h-6c0-.8-.2-1.3-1-2Z"],
+  ["M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z", "M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z", "m9 12-5 1 3 3 2-4Z", "m12 15-1 5 3-3-2-2Z", "M15 9h.01"],
+  ["M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0", "M5 6m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0", "M19 6m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0", "M5 18m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0", "M19 18m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0", "M6.5 7.5l4 3", "M17.5 7.5l-4 3", "M6.5 16.5l4-3", "M17.5 16.5l-4-3"],
+  ["M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z", "m9 12 2 2 4-4"],
+  ["M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z", "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"],
+  ["M4 21v-7", "M4 10V3", "M12 21v-9", "M12 8V3", "M20 21v-5", "M20 12V3", "M2 14h4", "M10 8h4", "M18 16h4"],
+  ["m12 3 9 5-9 5-9-5 9-5Z", "m3 12 9 5 9-5", "m3 16 9 5 9-5"],
 ];
 
 export default function Page() {
   return (
     <main className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-3">
-      <ProblemCardScrollRestorer />
+      <ProblemCardScrollRestorer block="center" />
       {siteUrl && (
         <script
           type="application/ld+json"
@@ -125,58 +129,79 @@ export default function Page() {
           </div>
         </ScrollReveal>
 
-        {/* 8 Cards: Only the Heading, Number, and Button */}
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:gap-8">
+        {/* Circular cards: keep the existing heading and detail-page destination. */}
+        <div className="mt-10 grid grid-cols-1 gap-x-5 gap-y-8 sm:mt-14 sm:gap-y-10 md:grid-cols-2 md:gap-x-6 xl:grid-cols-4">
           {differencesData.map((item, index) => (
-            <ScrollReveal className="h-full" delay={(index % 2) * 60} key={item.slug}>
+            <ScrollReveal
+              animateOnReveal
+              className="difference-card-reveal h-full"
+              delay={(index % 4) * 140}
+              duration={700}
+              key={item.slug}
+            >
               <article
                 id={`difference-${item.slug}`}
-                className={`group scroll-mt-28 relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-t-[5px] bg-gradient-to-br p-6 shadow-[0_12px_32px_rgba(16,43,80,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_42px_rgba(16,43,80,0.13)] sm:p-8 ${cardGradients[index]}`}
+                className="group relative flex h-full scroll-mt-28 items-start justify-center overflow-visible py-3"
               >
-                {/* Background Watermark Number */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-2 -top-5 select-none font-black text-[6.5rem] leading-none text-slate-900 opacity-[0.04] transition-transform duration-300 group-hover:scale-105 sm:text-[8rem]"
+                <ProblemCardNavigationLink
+                  href={`/how-problemex-is-different/${item.slug}`}
+                  targetId={`difference-${item.slug}`}
+                  ariaLabel={item.title}
+                  className="group/link relative flex w-full max-w-[320px] flex-col items-center rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#159447] focus-visible:ring-offset-4"
                 >
-                  {item.number}
-                </span>
+                  <div className="relative flex h-[270px] w-full items-center justify-center">
+                    <svg aria-hidden="true" viewBox="0 0 320 270" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+                      {/* Fine orbit sits just outside the main circle and ends in an arrow and dot. */}
+                      <path
+                        className="difference-orbit-path"
+                        id={`difference-orbit-track-${item.number}`}
+                        d="M212 263 A128 128 0 1 0 122 44"
+                        fill="none"
+                        pathLength={1}
+                        stroke={differenceAccents[index]}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                      <path className="difference-orbit-runner" d="M0 -7 16 0 0 7 4 0Z" fill={differenceAccents[index]}>
+                        <animateMotion data-reveal-motion dur="1.8s" begin="indefinite" fill="freeze" rotate="auto">
+                          <mpath href={`#difference-orbit-track-${item.number}`} />
+                        </animateMotion>
+                      </path>
+                      <path className="difference-orbit-static-arrow" d="m112 27 26 10-16 22Z" fill={differenceAccents[index]} />
+                      <circle cx="212" cy="263" r="5.5" fill={differenceAccents[index]} />
 
-                <div className="relative z-10">
-                  {/* Top Bar: Number Badge */}
-                  <div className="flex items-center justify-between gap-3 pb-3">
-                    <span
-                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br text-lg font-black text-white shadow-md ${item.badgeBg} ${item.glowTheme} sm:h-13 sm:w-13 sm:text-xl`}
+                      {/* Thick connector joins the satellite node to the main ring. */}
+                      <path d="M72 135h34" stroke={differenceAccents[index]} strokeWidth="23" strokeLinecap="round" />
+
+                      {/* The main ring has small openings at the top and bottom. */}
+                      <path d="M185 27 A110 110 0 0 0 185 243" fill="none" stroke={differenceAccents[index]} strokeWidth="10" />
+                      <path d="M231 27 A110 110 0 0 1 231 243" fill="none" stroke={differenceAccents[index]} strokeWidth="10" />
+                    </svg>
+
+                    <div
+                      className="relative z-20 -translate-y-0.5 flex h-[clamp(172px,57vw,204px)] w-[clamp(172px,57vw,204px)] translate-x-[clamp(44px,14vw,48px)] flex-col items-center justify-center rounded-full bg-white px-6 text-center shadow-[0_5px_10px_rgba(16,43,80,0.12),0_18px_28px_rgba(16,43,80,0.2)] transition-[transform,box-shadow] duration-300 ease-out group-hover/link:-translate-y-1 group-hover/link:shadow-[0_8px_14px_rgba(16,43,80,0.15),0_24px_38px_rgba(16,43,80,0.24)] motion-reduce:transition-none"
                     >
-                      {item.number}
+                      <h2 className="text-balance text-lg font-bold leading-[1.18] text-slate-950 sm:text-xl">
+                        {item.title.split(":")[0]}
+                      </h2>
+                      <span aria-hidden="true" className="mt-5 inline-flex h-8 w-14 items-center justify-center" style={{ color: differenceAccents[index] }}>
+                        <svg viewBox="0 0 32 16" fill="none" className="h-4 w-8">
+                          <path d="M1 8h28M22 2l7 6-7 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </div>
+
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-0 top-1/2 z-30 flex h-[78px] w-[78px] -translate-y-1/2 items-center justify-center rounded-full border-[5px] bg-white shadow-[0_10px_24px_rgba(16,43,80,0.22)]"
+                      style={{ borderColor: differenceAccents[index] }}
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke={differenceAccents[index]} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
+                        {differenceIconPaths[index].map((path) => <path key={path} d={path} />)}
+                      </svg>
                     </span>
                   </div>
-
-                  {/* Card Title (Only Heading) */}
-                  <h2 className="mt-4 text-balance text-xl font-extrabold leading-snug text-[#102b50] transition-colors duration-200 group-hover:text-[#147b4b] sm:text-2xl">
-                    <Link
-                      href={`/how-problemex-is-different/${item.slug}`}
-                      className="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#159447]"
-                    >
-                      {item.title}
-                    </Link>
-                  </h2>
-
-                  <span
-                    aria-hidden="true"
-                    className="mt-4 block h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447] transition-all duration-300 group-hover:w-16"
-                  />
-                </div>
-
-                {/* Card Button */}
-                <div className="relative z-10 mt-8 pt-4">
-                  <Link
-                    href={`/how-problemex-is-different/${item.slug}`}
-                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#0f6d3f]/20 bg-gradient-to-r from-[#117541] to-[#159447] px-6 py-2.5 text-sm font-bold text-white shadow-[0_6px_16px_rgba(21,148,71,0.24)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#102b50] hover:to-[#183b61] hover:shadow-[0_10px_22px_rgba(16,43,80,0.26)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:w-auto"
-                  >
-                    <span>Learn more</span>
-                    <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </div>
+                </ProblemCardNavigationLink>
               </article>
             </ScrollReveal>
           ))}

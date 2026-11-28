@@ -1,9 +1,11 @@
 ﻿import type { Metadata } from "next";
-import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import Image from "next/image";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
-import { ProblemCardScrollRestorer } from "@/app/components/problem-card-navigation/problem-card-navigation";
+import {
+  ProblemCardNavigationLink,
+  ProblemCardScrollRestorer,
+} from "@/app/components/problem-card-navigation/problem-card-navigation";
 
 
 const problemIntroduction = [
@@ -168,7 +170,7 @@ const breadcrumbSchema = {
 export default function Page() {
   return (
     <main className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-8 pt-2 sm:px-6 sm:pb-12 sm:pt-3">
-      <ProblemCardScrollRestorer />
+      <ProblemCardScrollRestorer block="center" />
       {siteUrl && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }} />}
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
       <Navbar />
@@ -201,14 +203,14 @@ export default function Page() {
                 <ScrollReveal className="h-full" delay={(index % 3) * 70} key={point.title}>
                 <article id={`problem-${problemPointSlugs[index]}`} className={`group scroll-mt-28 flex h-full min-h-56 min-w-0 flex-col overflow-hidden rounded-3xl border border-t-4 bg-gradient-to-br p-6 shadow-[0_12px_30px_rgba(16,43,80,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(16,43,80,0.16)] sm:p-7 ${problemCardThemes[index]}`}>
                   <h2 className="text-center text-balance text-lg font-extrabold leading-snug tracking-[-0.02em] sm:text-xl">
-                    <Link aria-label={`Open ${point.title}`} className="mx-auto block w-full rounded-md text-center text-[#102b50] transition-colors duration-200 hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
+                    <ProblemCardNavigationLink ariaLabel={`Open ${point.title}`} targetId={`problem-${problemPointSlugs[index]}`} className="mx-auto block w-full rounded-md text-center text-[#102b50] transition-colors duration-200 hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
                       {point.title}
-                    </Link>
+                    </ProblemCardNavigationLink>
                   </h2>
                     <span aria-hidden="true" className="mx-auto mt-5 h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447] transition-all duration-300 group-hover:w-16" />
-                    <Link aria-label={`Learn more about ${point.title}`} className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl border border-[#0f6d3f]/20 bg-gradient-to-r from-[#117541] to-[#159447] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(21,148,71,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#102b50] hover:to-[#183b61] hover:shadow-[0_12px_24px_rgba(16,43,80,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
+                    <ProblemCardNavigationLink ariaLabel={`Learn more about ${point.title}`} targetId={`problem-${problemPointSlugs[index]}`} className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl border border-[#0f6d3f]/20 bg-gradient-to-r from-[#117541] to-[#159447] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(21,148,71,0.28)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#102b50] hover:to-[#183b61] hover:shadow-[0_12px_24px_rgba(16,43,80,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447]" href={`/problem/${problemPointSlugs[index]}`}>
                     Learn more <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                    </ProblemCardNavigationLink>
                 </article>
                 </ScrollReveal>
               ))}
@@ -230,13 +232,13 @@ export default function Page() {
                         <span aria-hidden="true" className="pointer-events-none absolute -right-2 -top-7 select-none text-[7rem] font-black leading-none text-current opacity-[0.07] transition-transform duration-300 group-hover:scale-110">{String(index + 1).padStart(2, "0")}</span>
                         <p className="relative text-center text-xs font-extrabold uppercase tracking-[0.2em] opacity-75">Reason {String(index + 1).padStart(2, "0")}</p>
                         <h3 className="relative my-auto py-7 text-center text-balance text-xl font-extrabold leading-snug tracking-[-0.025em] text-[#102b50] sm:text-[1.35rem]">
-                          <Link aria-label={`Read: ${whyProblemTitles[index]}`} className="block rounded-xl px-2 py-3 transition-colors hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
+                          <ProblemCardNavigationLink ariaLabel={`Read: ${whyProblemTitles[index]}`} targetId={`why-problem-${slug}`} className="block rounded-xl px-2 py-3 transition-colors hover:text-[#147b4b] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
                             {whyProblemTitles[index]}
-                          </Link>
+                          </ProblemCardNavigationLink>
                         </h3>
-                        <Link aria-label={`Explore reason: ${whyProblemTitles[index]}`} className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full border border-[#102b50]/15 bg-white/75 px-5 py-2.5 text-sm font-bold text-[#102b50] shadow-sm transition-all duration-200 hover:bg-[#102b50] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
+                        <ProblemCardNavigationLink ariaLabel={`Explore reason: ${whyProblemTitles[index]}`} targetId={`why-problem-${slug}`} className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full border border-[#102b50]/15 bg-white/75 px-5 py-2.5 text-sm font-bold text-[#102b50] shadow-sm transition-all duration-200 hover:bg-[#102b50] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b]" href={`/problem/${slug}`}>
                           Explore this reason
-                        </Link>
+                        </ProblemCardNavigationLink>
                       </article>
                     </ScrollReveal>
                   );

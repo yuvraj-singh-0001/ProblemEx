@@ -234,9 +234,13 @@ body {
 
 .scroll-reveal {
   transition:
-    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity var(--scroll-reveal-duration, 620ms) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--scroll-reveal-duration, 620ms) cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--scroll-reveal-delay, 0ms);
+}
+
+.difference-card-reveal.scroll-reveal-ready:not(.scroll-reveal-visible) {
+  transform: translate3d(0, 36px, 0);
 }
 
 .scroll-reveal-visible {
@@ -251,6 +255,27 @@ body {
 
 .step-flow-path {
   animation: step-flow-dash 8s linear infinite;
+}
+
+.difference-orbit-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.difference-orbit-runner,
+.difference-orbit-static-arrow {
+  opacity: 0;
+}
+
+.scroll-reveal-visible .difference-orbit-path {
+  animation: difference-orbit-draw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(
+    var(--scroll-reveal-delay, 0ms) + var(--scroll-reveal-duration, 620ms)
+  );
+}
+
+.scroll-reveal-animations-started .difference-orbit-runner {
+  opacity: 1;
 }
 
 @keyframes step-ring-draw {
@@ -269,6 +294,12 @@ body {
   }
 }
 
+@keyframes difference-orbit-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -283,5 +314,21 @@ body {
   .scroll-reveal-ready:not(.scroll-reveal-visible) {
     opacity: 1;
     transform: none;
+  }
+
+  .difference-card-reveal.scroll-reveal-ready:not(.scroll-reveal-visible) {
+    transform: none;
+  }
+
+  .difference-orbit-path {
+    stroke-dashoffset: 0;
+  }
+
+  .difference-orbit-runner {
+    opacity: 0;
+  }
+
+  .difference-orbit-static-arrow {
+    opacity: 1;
   }
 }

@@ -146,30 +146,29 @@ export default function Page() {
                 {notProblemExLead}
               </p>
             </div>
-            <div className="relative mx-auto mt-8 max-w-7xl text-left before:absolute before:bottom-5 before:left-5 before:top-5 before:w-px before:bg-gradient-to-b before:from-[#ed1c24]/70 before:via-[#159447]/50 before:to-transparent sm:mt-12 sm:before:left-6">
+            <div className="mx-auto mt-8 max-w-7xl divide-y divide-[#d4e0e8] border-y border-[#d4e0e8] text-left sm:mt-12">
               {notProblemExPoints.map((point, index) => (
                 <ScrollReveal delay={(index % 4) * 55} key={point.title}>
-                <article
-                  className={`relative grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4 border-b border-[#d4e0e8]/80 py-7 last:border-b-0 sm:grid-cols-[3.25rem_minmax(0,1fr)] sm:gap-6 sm:py-9 ${index === 0 ? "pt-0" : ""}`}
-                >
-                  <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-[#fff1ee] to-[#e6f5ed] text-xs font-extrabold text-[#147b4b] ring-1 ring-[#159447]/15 sm:h-12 sm:w-12 sm:text-sm">
-                    {index + 1}.
-                  </span>
-                  <div className="min-w-0">
-                    <h2 className="text-balance text-xl font-extrabold leading-snug tracking-[-0.02em] text-[#102b50] sm:text-2xl">
-                      {point.title}
-                    </h2>
-                    <p className="mt-4 border-l-2 border-[#ed1c24]/60 pl-4 text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-                      {point.not}
-                    </p>
-                    <p className="mt-5 border-l-2 border-[#159447]/60 pl-4 text-pretty text-base font-bold leading-7 text-[#147b4b] sm:text-lg sm:leading-8">
-                      {point.butLead}
-                    </p>
-                    <p className="mt-2 pl-4 text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-                      {point.butText}
-                    </p>
-                  </div>
-                </article>
+                  <article className="grid gap-5 py-7 sm:gap-7 sm:py-9 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-12">
+                    <header className="self-start lg:pt-2">
+                      <h2 className="text-balance text-xl font-extrabold leading-snug tracking-[-0.02em] text-[#102b50] sm:text-2xl">
+                        {point.title}
+                      </h2>
+                      <span aria-hidden="true" className="mt-4 block h-1 w-12 rounded-full bg-gradient-to-r from-[#ed1c24] to-[#159447]" />
+                    </header>
+
+                    <div className="min-w-0 space-y-4 border-l-2 border-[#d4e0e8] pl-4 sm:space-y-5 sm:pl-6">
+                      <p className="text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                        {point.not}
+                      </p>
+                      <p className="text-pretty text-base font-bold leading-7 text-[#147b4b] sm:text-lg sm:leading-8">
+                        {point.butLead}
+                      </p>
+                      <p className="text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                        {point.butText}
+                      </p>
+                    </div>
+                  </article>
                 </ScrollReveal>
               ))}
             </div>

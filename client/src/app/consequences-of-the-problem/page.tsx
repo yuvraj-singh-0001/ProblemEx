@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
-import { ProblemCardScrollRestorer } from "@/app/components/problem-card-navigation/problem-card-navigation";
+import {
+  ProblemCardNavigationLink,
+  ProblemCardScrollRestorer,
+} from "@/app/components/problem-card-navigation/problem-card-navigation";
 
 
 
@@ -123,7 +126,7 @@ const breadcrumbSchema = {
 export default function Page() {
   return (
     <main className="relative min-h-[100svh] overflow-x-clip bg-[#f3f7fa] px-4 pb-8 pt-2 sm:px-6 sm:pb-12 sm:pt-3">
-      <ProblemCardScrollRestorer />
+      <ProblemCardScrollRestorer block="center" />
       {siteUrl && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }} />}
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
       <Navbar />
@@ -152,10 +155,11 @@ export default function Page() {
                   return (
                     <ScrollReveal className="h-full" delay={(index % 3) * 70} key={card.slug}>
                       <div className="perspective-midrange h-full pt-[clamp(5rem,27.5%,7rem)]">
-                        <Link
-                          aria-label={`Read ${card.title}`}
+                        <ProblemCardNavigationLink
+                          ariaLabel={`Read ${card.title}`}
                           className={`group relative isolate flex h-full w-full scroll-mt-28 flex-col items-center rounded-[1.8rem] border-x-2 border-b-[3px] border-t-0 bg-white px-6 pb-4 text-center shadow-[0_0_0_1px_rgba(125,211,252,0.08),0_10px_28px_rgba(39,155,195,0.1)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b] motion-reduce:transition-none sm:rounded-[2rem] sm:px-7 ${theme.side} ${theme.bottom} ${theme.hoverShadow}`}
                           href={`/consequences-of-the-problem/${card.slug}`}
+                          targetId={`consequence-${card.slug}`}
                           id={`consequence-${card.slug}`}
                         >
                           <span className={`absolute left-1/2 top-0 z-10 flex aspect-square w-1/2 max-w-52 -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-2 shadow-[0_10px_30px_rgba(55,185,225,0.24)] transition-all duration-300 group-hover:shadow-[0_14px_38px_rgba(55,185,225,0.35)] ${theme.icon}`}>
@@ -173,7 +177,7 @@ export default function Page() {
                           <span className={`mt-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-lg transition-all duration-200 group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:shadow-[0_5px_12px_rgba(16,43,80,0.12)] ${theme.button}`}>
                             <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
                           </span>
-                        </Link>
+                        </ProblemCardNavigationLink>
                       </div>
                     </ScrollReveal>
                   );

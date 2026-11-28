@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
-import { ProblemCardReturnLink } from "@/app/components/problem-card-navigation/problem-card-navigation";
+import { DetailBackButton } from "@/app/components/problem-card-navigation/problem-card-navigation";
 import { differencesData, type DifferencePoint } from "@/app/how-problemex-is-different/differences-data";
 
 interface DifferenceDetailViewProps {
@@ -21,39 +21,24 @@ export default function DifferenceDetailView({ point }: DifferenceDetailViewProp
       <Navbar />
 
       <article className="relative mx-auto w-full max-w-5xl py-4 sm:py-8">
-        {/* Back Button */}
-        <div className="flex items-center justify-between">
-          <ProblemCardReturnLink
-            href="/how-problemex-is-different"
-            targetId={`difference-${point.slug}`}
-            className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d4e0e8] bg-white/90 px-5 py-2 text-sm font-semibold text-[#147b4b] shadow-sm transition hover:border-[#159447] hover:bg-white hover:shadow"
-          >
-            <span aria-hidden="true">&larr;</span>
-            <span>Back to How ProblemEx Is Different</span>
-          </ProblemCardReturnLink>
+        <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <DetailBackButton fallbackHref="/how-problemex-is-different" />
 
-          {/* Badge Number */}
-          <span
-            className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br text-sm font-black text-white shadow ${point.badgeBg}`}
-          >
-            {point.number}
-          </span>
+          {/* Breadcrumb Navigation */}
+          <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+            <Link className="font-semibold text-[#147b4b] hover:underline" href="/">
+              Home
+            </Link>
+            <span className="mx-2">/</span>
+            <Link className="font-semibold text-[#147b4b] hover:underline" href="/how-problemex-is-different">
+              How ProblemEx Is Different
+            </Link>
+            <span className="mx-2">/</span>
+            <span aria-current="page" className="font-medium text-slate-700">
+              Difference {point.number}
+            </span>
+          </nav>
         </div>
-
-        {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="mt-6 text-sm text-slate-500">
-          <Link className="font-semibold text-[#147b4b] hover:underline" href="/">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <Link className="font-semibold text-[#147b4b] hover:underline" href="/how-problemex-is-different">
-            How ProblemEx Is Different
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="font-medium text-slate-700">
-            Difference {point.number}
-          </span>
-        </nav>
 
         {/* Page Header (Exact Heading from User) */}
         <header className="mt-8 border-b border-[#dce6ed] pb-8 text-left sm:mt-10 sm:pb-10">
