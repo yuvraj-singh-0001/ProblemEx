@@ -157,7 +157,7 @@ export default function HomeHero() {
     <main
       className={`relative flex min-h-[100svh] overflow-x-clip ${
         showButtons
-          ? "items-stretch justify-start bg-[#f4f7fb] px-0"
+          ? "items-stretch justify-start bg-[#f4f0e7] px-0"
           : "hero-background items-center justify-center px-4"
       }`}
     >
@@ -235,36 +235,43 @@ export default function HomeHero() {
               <li key={label}>
                 <Link
                   aria-label={label}
-                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#c6d1dd] p-[1.5px] text-left shadow-[0_8px_24px_rgba(16,43,80,0.08)] ${phase === "buttons" ? "animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards]" : ""} transition-shadow duration-200 hover:shadow-[0_12px_30px_rgba(16,43,80,0.14)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#159447] sm:rounded-[1.35rem]`}
+                  className={`group relative isolate flex h-full min-h-0 flex-col items-start overflow-hidden rounded-[1.15rem] bg-[#59471f] p-[2px] text-left shadow-[0_12px_28px_rgba(6,24,53,0.18)] ${phase === "buttons" ? "animate-[card-appear_600ms_cubic-bezier(0.16,1,0.3,1)_backwards]" : ""} transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(6,24,53,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d9b55c] sm:rounded-[1.35rem]`}
                   href={getProblemSectionPath(problemSectionSlugs[index])}
                   onNavigate={() => {
                     window.sessionStorage.setItem(introCompleteKey, "true");
                     window.sessionStorage.setItem(returnToHomeCardsKey, "true");
                     setPhase("buttons-static");
                   }}
-                  style={{ animationDelay: `${index * 28}ms` }}
+                  style={{ animationDelay: `${index * 110}ms` }}
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute inset-[1.5px] z-[1] rounded-[1.05rem] bg-[radial-gradient(ellipse_at_100%_100%,rgba(21,148,71,0.08),transparent_48%),radial-gradient(ellipse_at_0%_0%,rgba(237,28,36,0.05),transparent_48%),linear-gradient(135deg,#e2ebf4,#cbd9e8)] transition-[filter] duration-200 group-hover:brightness-[0.98] sm:rounded-[1.25rem]"
+                    className="absolute inset-[2px] z-[1] rounded-[1.05rem] bg-[radial-gradient(ellipse_at_100%_0%,rgba(255,255,255,0.10),transparent_48%),linear-gradient(135deg,#183b70_0%,#102b50_58%,#0a1e3f_100%)] transition-[filter] duration-300 group-hover:brightness-110 sm:rounded-[1.25rem]"
                   />
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 z-0 scale-150 animate-[spin_5s_linear_infinite] rounded-[inherit] bg-[conic-gradient(from_0deg,transparent_0deg_285deg,rgba(153,27,27,0.25)_310deg,#b91c1c_330deg,#ef4444_345deg,#b91c1c_358deg,#991b1b_360deg)] motion-reduce:animate-none"
+                    className="pointer-events-none absolute inset-0 z-0 animate-[spin_6s_linear_infinite] rounded-[inherit] bg-[conic-gradient(from_0deg,rgba(21,148,71,0.42)_0deg_265deg,rgba(21,148,71,0.82)_300deg,#9df4b9_322deg,#39c879_342deg,rgba(21,148,71,0.42)_360deg)] transition-[filter] duration-300 group-hover:animate-[spin_2.4s_linear_infinite] group-hover:brightness-125 motion-reduce:animate-none"
                   />
-                  <span className="relative z-10 flex items-center gap-2 px-2.5 pt-2 text-[10px] font-extrabold tracking-[0.18em] text-[#159447] min-[430px]:text-xs sm:gap-3 sm:px-4 sm:pt-3 sm:text-sm xl:px-5 xl:pt-4">
+                  <span className="relative z-10 flex items-center gap-2 px-3 pt-3 text-[10px] font-extrabold tracking-[0.18em] text-[#e0b85b] min-[430px]:text-xs sm:gap-3 sm:px-5 sm:pt-4 sm:text-sm xl:px-7 xl:pt-5">
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <span
                       aria-hidden="true"
-                      className="h-0.5 w-5 bg-gradient-to-r from-[#ed1c24] to-[#159447] sm:w-8 xl:w-10"
+                      className="h-0.5 w-5 bg-gradient-to-r from-[#e0b85b] to-[#f3d78b] sm:w-8 xl:w-10"
                     />
                   </span>
-                  <span className="absolute inset-x-3 top-[58%] z-10 -translate-y-1/2 text-center text-balance text-[10px] font-bold leading-tight text-[#102b50] min-[430px]:top-1/2 min-[430px]:text-xs sm:inset-x-5 sm:text-sm xl:text-base">
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-[24%] right-[2%] z-[2] select-none text-[7rem] font-black leading-none tracking-[-0.12em] text-transparent sm:text-[9rem] xl:text-[11rem]"
+                    style={{ WebkitTextStroke: "2px rgba(222, 184, 91, 0.17)" }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="absolute bottom-4 left-3 right-11 z-10 text-left text-balance text-xs font-bold leading-tight text-[#f7f3e9] min-[430px]:text-sm sm:bottom-6 sm:left-5 sm:right-16 sm:text-base xl:text-xl">
                     {label}
                   </span>
                   <span
                     aria-hidden="true"
-                    className="absolute right-2 top-2 z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#102b50]/20 bg-white/70 text-sm text-[#102b50] transition-colors duration-200 group-hover:border-[#159447] group-hover:bg-[#159447] group-hover:text-white sm:right-3 sm:top-3 sm:h-8 sm:w-8 sm:text-base xl:h-10 xl:w-10"
+                    className="absolute bottom-3 right-3 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#d9b55c]/80 bg-transparent text-sm text-[#e6c165] transition-colors duration-200 group-hover:border-[#e6c165] group-hover:bg-[#e6c165] group-hover:text-[#102b50] sm:bottom-5 sm:right-5 sm:h-9 sm:w-9 sm:text-base xl:h-11 xl:w-11"
                   >
                     →
                   </span>

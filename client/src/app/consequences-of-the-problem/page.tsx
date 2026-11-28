@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
@@ -18,43 +19,56 @@ const consequencesIntroduction = [
 const consequencesLead =
   "And the consequences can extend far beyond what we often imagine.";
 
-const consequenceCards = [
+const consequenceCards: {
+  title: string;
+  slug: string;
+  image: string;
+}[] = [
   {
     title: "A Generation Struggling to Stand on Its Own Feet",
-    slug: "a-generation-struggling-to-stand-on-its-own-feet"
+    slug: "a-generation-struggling-to-stand-on-its-own-feet",
+    image: "/a-generation-struggling-to-stand-on-its-own-feet.png",
   },
   {
     title: "Poor Decisions with Lasting Consequences",
-    slug: "poor-decisions-with-lasting-consequences"
+    slug: "poor-decisions-with-lasting-consequences",
+    image: "/poor-decisions-with-lasting-consequences.png",
   },
   {
     title: "Everyday Challenges Turning into Overwhelming Crises",
-    slug: "everyday-challenges-turning-into-overwhelming-crises"
+    slug: "everyday-challenges-turning-into-overwhelming-crises",
+    image: "/everyday-challenges-turning-into-overwhelming-crises.png",
   },
   {
     title: "Strained Relationships and the Breakdown of Human Connections",
-    slug: "strained-relationships-and-the-breakdown-of-human-connections"
+    slug: "strained-relationships-and-the-breakdown-of-human-connections",
+    image: "/strained-relationships-and-the-breakdown-of-human-connections.png",
   },
   {
     title: "Vulnerability to Manipulation, Exploitation and Deception",
-    slug: "vulnerability-to-manipulation-exploitation-and-deception"
+    slug: "vulnerability-to-manipulation-exploitation-and-deception",
+    image: "/vulnerability-to-manipulation-exploitation-and-deception.png",
   },
   {
     title: "Reduced Employability, Career Growth and Economic Independence",
-    slug: "reduced-employability-career-growth-and-economic-independence"
+    slug: "reduced-employability-career-growth-and-economic-independence",
+    image: "/reduced-employability-career-growth-and-economic-independence.png",
   },
   {
     title: "Missed Opportunities, Wasted Potential and Unfulfilled Aspirations",
-    slug: "missed-opportunities-wasted-potential-and-unfulfilled-aspirations"
+    slug: "missed-opportunities-wasted-potential-and-unfulfilled-aspirations",
+    image: "/missed-opportunities-wasted-potential-and-unfulfilled-aspirations.png",
   },
   {
     title: "Compromised Ethical Judgement and Responsible Behaviour",
-    slug: "compromised-ethical-judgement-and-responsible-behaviour"
+    slug: "compromised-ethical-judgement-and-responsible-behaviour",
+    image: "/compromised-ethical-judgement-and-responsible-behaviour.png",
   },
   {
     title: "A Society Less Equipped to Handle Its Collective Challenges",
-    slug: "a-society-less-equipped-to-handle-its-collective-challenges"
-  }
+    slug: "a-society-less-equipped-to-handle-its-collective-challenges",
+    image: "/a-society-less-equipped-to-handle-its-collective-challenges.png",
+  },
 ];
 
 const consequenceCardThemes = [
@@ -69,25 +83,7 @@ const consequenceCardThemes = [
   { side: "border-x-[#c6d3a1] group-hover:border-x-[#8caa56]", bottom: "border-b-[#8caa56]", hoverShadow: "hover:shadow-[0_0_0_2px_rgba(140,170,86,0.2),0_16px_36px_rgba(140,170,86,0.15)]", icon: "border-[#8caa56] bg-[#f3f7e9] text-[#647d32]", button: "border-[#d7e0bc] bg-[#f8faef] text-[#596f2d] hover:bg-[#eff5df]" },
 ];
 
-const consequenceIconPaths = [
-  "M4 20h16M7 20v-5m5 5V4m5 16v-9M9 7l3-3 3 3",
-  "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-14v5l4 2",
-  "m13 2-3 8h6l-5 12 1-9H6l7-11Z",
-  "M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM4 21a8 8 0 0 1 16 0m-2-13 2-2 2 2m-2-2v6",
-  "M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Zm0-13v4m0 4h.01",
-  "M3 8h18v12H3zM8 8V5h8v3m-13 4h18m-11 0v2h4v-2",
-  "m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z",
-  "M12 3v18m-8-14h16M7 7l-4 7h8L7 7Zm10 0-4 7h8l-4-7ZM8 21h8",
-  "M5 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm14 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-7 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM5 4l7 16m7-16-7 16M5 4h14",
-];
 
-function ConsequenceIcon({ index }: { index: number }) {
-  return (
-    <svg aria-hidden="true" className="h-[4.5rem] w-[4.5rem] sm:h-20 sm:w-20" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24">
-      <path d={consequenceIconPaths[index]} />
-    </svg>
-  );
-}
 
 
 
@@ -136,51 +132,57 @@ export default function Page() {
         <header className="px-2 py-7 text-center sm:py-10"><h1 className="mx-auto inline-block bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-3xl font-extrabold tracking-tight text-transparent sm:text-5xl">The Consequences of the Problem</h1></header>
         {
           (
-          <>
-            <div className="mx-auto mt-5 max-w-7xl space-y-5 text-left sm:mt-7 sm:space-y-6">
-              {consequencesIntroduction.map((paragraph) => (
-                <p
-                  className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8"
-                  key={paragraph}
-                >
-                  {paragraph}
+            <>
+              <div className="mx-auto mt-5 max-w-7xl space-y-5 text-left sm:mt-7 sm:space-y-6">
+                {consequencesIntroduction.map((paragraph) => (
+                  <p
+                    className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8"
+                    key={paragraph}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+                <p className="pt-2 text-pretty text-lg font-semibold leading-7 text-[#102b50] sm:pt-4 sm:text-xl sm:leading-8">
+                  {consequencesLead}
                 </p>
-              ))}
-              <p className="pt-2 text-pretty text-lg font-semibold leading-7 text-[#102b50] sm:pt-4 sm:text-xl sm:leading-8">
-                {consequencesLead}
-              </p>
-            </div>
-            <div className="mx-auto mt-12 grid max-w-7xl auto-rows-[24rem] grid-cols-1 gap-x-6 gap-y-10 sm:mt-16 sm:auto-rows-[25rem] sm:grid-cols-2 sm:gap-x-7 sm:gap-y-12 xl:grid-cols-3">
-              {consequenceCards.map((card, index) => {
-                const theme = consequenceCardThemes[index];
-                return (
-                  <ScrollReveal className="h-full" delay={(index % 3) * 70} key={card.slug}>
-                    <div className="perspective-midrange h-full pt-[clamp(5rem,27.5%,7rem)]">
-                      <Link
-                        aria-label={`Read ${card.title}`}
-                        className={`group relative isolate flex h-full w-full scroll-mt-28 flex-col items-center rounded-[1.8rem] border-x-2 border-b-[3px] border-t-0 bg-white px-6 pb-4 text-center shadow-[0_0_0_1px_rgba(125,211,252,0.08),0_10px_28px_rgba(39,155,195,0.1)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b] motion-reduce:transition-none sm:rounded-[2rem] sm:px-7 ${theme.side} ${theme.bottom} ${theme.hoverShadow}`}
-                        href={`/consequences-of-the-problem/${card.slug}`}
-                        id={`consequence-${card.slug}`}
-                      >
-                        <span className={`absolute left-1/2 top-0 z-10 flex aspect-square w-1/2 max-w-52 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 shadow-[0_12px_36px_rgba(55,185,225,0.24)] transition duration-300 group-hover:scale-[1.03] group-hover:shadow-[0_16px_42px_rgba(55,185,225,0.3)] ${theme.icon}`}>
-                          <ConsequenceIcon index={index} />
-                        </span>
-                        <h2 className="mt-[7.5rem] w-full text-center text-balance text-lg font-extrabold leading-tight tracking-[-0.025em] text-[#102b50] sm:mt-[7.5rem] sm:text-xl lg:mt-[8.5rem]">
-                          {card.title}
-                        </h2>
-                        <span className={`mt-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-lg transition-all duration-200 group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:shadow-[0_5px_12px_rgba(16,43,80,0.12)] ${theme.button}`}>
-                          <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
-                        </span>
-                      </Link>
-                    </div>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
-          </>
-        )
+              </div>
+              <div className="mx-auto mt-12 grid max-w-7xl auto-rows-[24rem] grid-cols-1 gap-x-6 gap-y-10 sm:mt-16 sm:auto-rows-[25rem] sm:grid-cols-2 sm:gap-x-7 sm:gap-y-12 xl:grid-cols-3">
+                {consequenceCards.map((card, index) => {
+                  const theme = consequenceCardThemes[index];
+                  return (
+                    <ScrollReveal className="h-full" delay={(index % 3) * 70} key={card.slug}>
+                      <div className="perspective-midrange h-full pt-[clamp(5rem,27.5%,7rem)]">
+                        <Link
+                          aria-label={`Read ${card.title}`}
+                          className={`group relative isolate flex h-full w-full scroll-mt-28 flex-col items-center rounded-[1.8rem] border-x-2 border-b-[3px] border-t-0 bg-white px-6 pb-4 text-center shadow-[0_0_0_1px_rgba(125,211,252,0.08),0_10px_28px_rgba(39,155,195,0.1)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#147b4b] motion-reduce:transition-none sm:rounded-[2rem] sm:px-7 ${theme.side} ${theme.bottom} ${theme.hoverShadow}`}
+                          href={`/consequences-of-the-problem/${card.slug}`}
+                          id={`consequence-${card.slug}`}
+                        >
+                          <span className={`absolute left-1/2 top-0 z-10 flex aspect-square w-1/2 max-w-52 -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-2 shadow-[0_10px_30px_rgba(55,185,225,0.24)] transition-all duration-300 group-hover:shadow-[0_14px_38px_rgba(55,185,225,0.35)] ${theme.icon}`}>
+                            <Image
+                              alt={card.title}
+                              className="h-full w-full scale-[1.24] object-cover transition-transform duration-300 group-hover:scale-[1.30]"
+                              height={256}
+                              src={card.image}
+                              width={256}
+                            />
+                          </span>
+                          <h2 className="mt-[7.5rem] w-full text-center text-balance text-lg font-extrabold leading-tight tracking-[-0.025em] text-[#102b50] sm:mt-[7.5rem] sm:text-xl lg:mt-[8.5rem]">
+                            {card.title}
+                          </h2>
+                          <span className={`mt-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-lg transition-all duration-200 group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:shadow-[0_5px_12px_rgba(16,43,80,0.12)] ${theme.button}`}>
+                            <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
+                          </span>
+                        </Link>
+                      </div>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+            </>
+          )
         }
-        
+
       </section>
     </main>
   );
