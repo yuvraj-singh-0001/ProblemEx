@@ -21,6 +21,20 @@ const situationalCapabilities = [
   ["Values, Ethics and Responsibility", "Your ability to recognise ethical considerations, distinguish between right and wrong, and act responsibly."],
 ];
 
+const capabilityColors = [
+  { border: "#f2a900", badge: "#fff3c4", text: "#8a5b00" },
+  { border: "#ef6b16", badge: "#ffeadb", text: "#a33b08" },
+  { border: "#db3f70", badge: "#ffe1eb", text: "#a51f4b" },
+  { border: "#bb3b94", badge: "#f9e2f3", text: "#8c216d" },
+  { border: "#7145a5", badge: "#eee5fa", text: "#4f2b7c" },
+  { border: "#1976c9", badge: "#dfedff", text: "#15539a" },
+  { border: "#28a7cf", badge: "#dff7ff", text: "#14738f" },
+  { border: "#159497", badge: "#ddf5f1", text: "#116d6e" },
+  { border: "#5b9d20", badge: "#e8f5d8", text: "#3d7314" },
+  { border: "#91ae18", badge: "#f2f7d8", text: "#647b0c" },
+  { border: "#d34b3d", badge: "#ffe7e2", text: "#a33229" },
+];
+
 const skAssessmentSteps = [
   ["The Initial Assessment", "Before beginning the ProblemEx programme, participants undertake an assessment designed to evaluate their Situational Knowledge Quotient (SKQ). Based on their performance, an initial SKI value is calculated, providing a starting point for their journey."],
   ["The ProblemEx Journey", "Participants undertake the ProblemEx programme, engaging with practical situations, challenges, learning experiences and activities designed to progressively develop their Situational Knowledge Quotient (SKQ)."],
@@ -83,18 +97,39 @@ function SectionContent() {
           </div>
 
           <h3 className="mt-8 text-lg font-extrabold text-[#147b4b] sm:text-xl">This includes, among other things:</h3>
-          <div className="mt-5 grid gap-x-10 md:grid-cols-2">
-            {situationalCapabilities.map(([title, description], index) => (
-              <ScrollReveal className="border-t border-[#d7e4e8]" delay={(index % 2) * 65} key={title}>
-                <article className="grid grid-cols-[1rem_minmax(0,1fr)] gap-3 py-5 sm:gap-4 sm:py-6">
-                  <span aria-hidden="true" className="mt-3 h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[#ed1c24] to-[#159447]" />
-                  <div>
-                    <h3 className="text-balance text-lg font-bold leading-snug text-[#102b50] sm:text-xl">{title}</h3>
-                    <p className="mt-2 text-pretty text-base leading-7 text-slate-600">{description}</p>
-                  </div>
-                </article>
-              </ScrollReveal>
-            ))}
+          <div className="mt-12 grid gap-x-6 gap-y-16 sm:grid-cols-2 xl:grid-cols-4">
+            {situationalCapabilities.map(([title, description], index) => {
+              const color = capabilityColors[index];
+              return (
+                <ScrollReveal className="w-full" delay={(index % 3) * 65} key={title}>
+                  <article
+                    className="group relative mx-auto aspect-square w-full max-w-[360px] rounded-full border-[7px] bg-white p-2 shadow-[0_16px_30px_rgba(16,43,80,0.20)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_42px_rgba(16,43,80,0.28)] sm:p-2.5"
+                    style={{ borderColor: color.border }}
+                  >
+                    <div className="relative h-full w-full rounded-full border border-slate-200 bg-gradient-to-b from-white via-white to-slate-50 shadow-[0_5px_14px_rgba(16,43,80,0.16),inset_0_2px_8px_rgba(16,43,80,0.08)] transition duration-300 group-hover:scale-[1.015] group-hover:shadow-[0_9px_20px_rgba(16,43,80,0.24),inset_0_2px_9px_rgba(16,43,80,0.10)]">
+                      <div className="absolute left-[3%] right-[1%] top-[-9%] z-10 flex items-center">
+                        <span
+                          aria-hidden="true"
+                          className="relative z-20 -mr-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[3px] bg-white text-base font-extrabold outline outline-4 outline-white shadow-[0_5px_12px_rgba(16,43,80,0.28)] sm:h-16 sm:w-16"
+                          style={{ borderColor: color.border, color: color.text, boxShadow: `0 4px 8px rgba(16,43,80,0.22), inset 0 0 0 3px ${color.badge}` }}
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <h4
+                          className="flex min-h-14 flex-1 items-center border-2 py-2 pl-8 pr-6 text-left text-[13px] font-extrabold leading-tight sm:min-h-16 sm:pl-9 sm:pr-7 sm:text-[15px]"
+                          style={{ backgroundColor: color.badge, borderColor: color.border, color: color.text, clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%)" }}
+                        >
+                          {title}
+                        </h4>
+                      </div>
+                      <p className="absolute inset-x-[11%] bottom-[14%] top-[28%] flex items-center justify-center text-center text-pretty text-[15px] leading-6 text-slate-700 sm:text-[17px] sm:leading-7">
+                        {description}
+                      </p>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              );
+            })}
           </div>
           <p className="mt-6 text-pretty text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
             These and many other relevant abilities may come into play, depending upon the situation you encounter.
@@ -273,9 +308,9 @@ function SectionContent() {
           <div className="mt-7 max-w-7xl border-y border-[#c8ddd6] py-5 sm:mt-9 sm:py-6">
             <p className="text-pretty text-base leading-8 text-slate-700 sm:text-lg sm:leading-9">
               You will have a better-developed toolkit of abilities. You will have a stronger foundation to{" "}
-              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">think,</span>{" "}
-              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#102b50] shadow-sm">act,</span>{" "}
-              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">adapt,</span>{" "}
+              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">think</span>{" "}
+              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#102b50] shadow-sm">act</span>{" "}
+              <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">adapt</span>{" "}
               <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#102b50] shadow-sm">decide</span>{" "}and{" "}
               <span className="inline-block rounded-lg bg-white/80 px-2 py-0.5 font-bold text-[#147b4b] shadow-sm">navigate.</span>
             </p>

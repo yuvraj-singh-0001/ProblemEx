@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar/navbar";
 import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
@@ -9,19 +10,19 @@ import ScrollReveal from "@/app/components/scroll-reveal/scroll-reveal";
 
 
 export const metadata: Metadata = {
-  title: "Practical Skills for Real-Life Problems",
+  title: 'The Solution: "ProblemEx"',
   description: "Learn how ProblemEx by The True Topper develops Situational Knowledge and practical abilities for real-life problems, challenges and dilemmas.",
   alternates: { canonical: "/solution" },
   openGraph: {
     siteName: "ProblemEx",
-    title: "Introducing ProblemEx | ProblemEx",
+    title: 'The Solution: "ProblemEx" | ProblemEx',
     description: "Learn how ProblemEx by The True Topper develops Situational Knowledge and practical abilities for real-life problems, challenges and dilemmas.",
     type: "article",
     images: [{ url: "/problemEx.png", alt: "ProblemEx practical learning programme" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Introducing ProblemEx | ProblemEx",
+    title: 'The Solution: "ProblemEx" | ProblemEx',
     description: "Learn how ProblemEx by The True Topper develops Situational Knowledge and practical abilities for real-life problems, challenges and dilemmas.",
     images: ["/problemEx.png"],
   },
@@ -33,7 +34,7 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl ? new URL("/", siteUrl).toString() : undefined },
-    { "@type": "ListItem", position: 2, name: "Introducing ProblemEx", item: siteUrl ? new URL("/solution", siteUrl).toString() : undefined },
+    { "@type": "ListItem", position: 2, name: 'The Solution: "ProblemEx"', item: siteUrl ? new URL("/solution", siteUrl).toString() : undefined },
   ],
 };
 
@@ -61,26 +62,34 @@ export default function Page() {
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-300/20 blur-[100px]" />
       <Navbar />
       <section className="relative mx-auto w-full max-w-7xl py-2 sm:py-4">
-        <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-2 pt-3 text-sm text-slate-500"><Link className="font-semibold text-[#147b4b] hover:underline" href="/">Home</Link><span className="mx-2">/</span><span aria-current="page">Introducing ProblemEx</span></nav>
-        <header className="px-2 py-7 text-center sm:py-10"><h1 className="mx-auto inline-block bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-3xl font-extrabold tracking-tight text-transparent sm:text-5xl">Introducing ProblemEx</h1></header>
+        <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-2 pt-3 text-sm text-slate-500"><Link className="font-semibold text-[#147b4b] hover:underline" href="/">Home</Link><span className="mx-2">/</span><span aria-current="page">The Solution: &quot;ProblemEx&quot;</span></nav>
+        <header className="px-2 py-5 text-center sm:py-7"><h1 className="mx-auto inline-block bg-gradient-to-r from-[#102b50] via-[#147b4b] to-[#159447] bg-clip-text text-balance text-3xl font-extrabold tracking-tight text-transparent sm:text-5xl">The Solution: &quot;ProblemEx&quot;</h1></header>
         {
           (
-          <div className="mx-auto mt-5 w-full max-w-7xl space-y-12 text-left sm:mt-8 sm:space-y-16">
+          <div className="mx-auto mt-2 w-full max-w-6xl space-y-10 text-left sm:mt-4 sm:space-y-12">
             <ScrollReveal delay={0}>
             <section>
-              <div className="mt-8 text-center sm:mt-10">
-                <h2 className="text-2xl font-bold tracking-tight text-[#102b50] sm:text-3xl">
-                  ProblemEx by TTT
-                </h2>
-                <p className="mt-3 bg-gradient-to-r from-[#e11d48] via-[#c2410c] to-[#15803d] bg-clip-text text-lg font-bold text-transparent sm:text-2xl">
+              <h2 className="text-left text-2xl font-extrabold tracking-tight text-[#102b50] sm:text-3xl">
+                Introducing ProblemEx
+              </h2>
+              <div className="mt-5 text-left sm:mt-6">
+                <Image
+                  src="/problembyttt-logo.png"
+                  alt="ProblemEx by TTT"
+                  width={324}
+                  height={108}
+                  priority
+                  className="h-auto w-56 object-contain object-left sm:w-64"
+                />
+                <p className="mt-3 bg-gradient-to-r from-[#e11d48] via-[#c2410c] to-[#15803d] bg-clip-text text-left text-lg font-bold text-transparent sm:text-xl">
                   Practical Skills to Exit Real-Life Problems
                 </p>
               </div>
-              <div className="mt-7 space-y-5 sm:mt-9 sm:space-y-6">
-                <p className="text-pretty text-[17px] leading-7 text-slate-700 sm:text-[19px] sm:leading-8">
+              <div className="mx-auto mt-6 max-w-5xl space-y-4 sm:mt-7 sm:space-y-5">
+                <p className="text-pretty text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
                   The real world presents us with countless practical problems, challenges, difficult situations and dilemmas. Navigating them requires more than merely possessing knowledge. It requires the ability to confront situations, think clearly, make appropriate choices and find a way forward. It requires what we term as the &ldquo;Situational Knowledge&rdquo;.
                 </p>
-                <p className="border-l-4 border-[#159447] pl-5 text-pretty text-lg font-semibold leading-8 text-[#183b61] sm:pl-7 sm:text-xl sm:leading-9">
+                <p className="border-l-4 border-[#159447] bg-white/60 py-3 pl-5 pr-4 text-pretty text-base font-semibold leading-7 text-[#183b61] sm:pl-6 sm:text-lg sm:leading-8">
                   ProblemEx by TTT is an initiative by The True Topper (TTT) to help individuals develop the practical abilities to navigate these real-life challenges by providing them &ldquo;Situational Knowledge&rdquo;.
                 </p>
               </div>
@@ -89,8 +98,8 @@ export default function Page() {
 
             <ScrollReveal delay={50}>
             <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
-              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
-                B. Why the Name ProblemEx?
+              <h2 className="text-balance text-2xl font-extrabold tracking-tight text-[#102b50] sm:text-3xl">
+                Why the Name ProblemEx?
               </h2>
               <p className="mt-5 inline-flex rounded-xl bg-gradient-to-r from-[#e8f0fa] to-[#e8f6ee] px-5 py-3 text-xl font-extrabold tracking-tight text-[#147b4b] sm:text-2xl">
                 ProblemEx = Problems + Exit.
@@ -109,8 +118,8 @@ export default function Page() {
 
             <ScrollReveal delay={50}>
             <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
-              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
-                C. Our Tagline: Practical Skills to Exit Real-Life Problems
+              <h2 className="text-balance text-2xl font-extrabold tracking-tight text-[#102b50] sm:text-3xl">
+                Our Tagline: Practical Skills to Exit Real-Life Problems
               </h2>
               <div className="mt-5 space-y-5 text-pretty text-base leading-7 text-slate-700 sm:mt-6 sm:space-y-6 sm:text-lg sm:leading-8">
                 <p>
@@ -125,8 +134,8 @@ export default function Page() {
 
             <ScrollReveal delay={50}>
             <section className="border-t border-[#d4e0e8] pt-8 sm:pt-10">
-              <h2 className="text-balance text-xl font-extrabold text-[#102b50] sm:text-2xl">
-                D. But First, Let&apos;s Clear Something Up!
+              <h2 className="text-balance text-2xl font-extrabold tracking-tight text-[#102b50] sm:text-3xl">
+                But First, Let&apos;s Clear Something Up!
               </h2>
               <div className="mt-5 space-y-5 text-pretty text-base leading-7 text-slate-700 sm:mt-6 sm:space-y-6 sm:text-lg sm:leading-8">
                 <p>
